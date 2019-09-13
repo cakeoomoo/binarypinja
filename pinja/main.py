@@ -57,19 +57,21 @@ def main(input_dirpath, output_dirpath, format, mode, byte):
     files = getallfiles(input_dirpath)
 
     # get files entry point
-    e_point_list = []
+    entry_pointlist = []
     if format == 'pe':
         for file in files:
             if os.path.isdir(file):
                 continue
-            get_pe_entrypoint(file)
+            entry_pointlist.append([file, get_pe_entrypoint(file)])
     elif format == 'elf':
         for file in files:
             if os.path.isdir(file):
                 continue
-            get_elf_entrypoint(file)
+            entry_pointlist.append([file, get_elf_entrypoint(file)])
     else:
         print_red('argument(mode) is wrong!')
+
+    print_green(entry_pointlist)
 
     # get files all symbol
         #TODO
