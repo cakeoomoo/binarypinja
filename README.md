@@ -62,7 +62,7 @@ pendding...
 Project Organization
 ------------
 
-    ├── data  <--------------------dataset
+    ├── data
     │   ├── infileELF
     │   ├── infileELF_1file
     │   └── infilePE
@@ -74,7 +74,7 @@ Project Organization
     │   ├── color
     │   │   ├── color.py
     │   ├── getfileinfo
-    │   │   └── getfileinfo.py <--------------------todo!!!
+    │   │   └── getfileinfo.py  <--------------------working!!!
     │   ├── getbin
     │   │   └── getbin.py <--------------------todo!!!
     │   ├── __init__.py
