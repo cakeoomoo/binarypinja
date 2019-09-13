@@ -8,10 +8,14 @@ BINARY PINJA
 [![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
 
 
-This project is to make dataset for sevearal machine learnning program and model of the natural processng language.
+This project is to make dataset for sevearal machine learnning program at natural processng language and convert to binary-code and disassembly code from executable files and make these CSV-files.
 
 
 ## FEATURE:
+
+- Input executable files(directory path)
+    - `PEformat(.exe) files`
+    - `ELFformat files`
 
 - Output CSVfiles
     - `[dirname].csv`             :  Extract entrypoint for all files
@@ -20,8 +24,8 @@ This project is to make dataset for sevearal machine learnning program and model
     - `[dirname].bin.asm.csv`     :  Convert disassembly files for all files
     - `[dirname].bin.asm.repl.csv`:  Replace to arbitrary code from code of disassembly files for all files
 
-- Output similary comparison with disassembly code by using doc2vec 
-    - Print list on CLI
+- Output result of the similary comparison at disassembly-codes by using doc2vec 
+    - Print result-lists on CLI
 
 
 ### HOW TO INSTALL:
@@ -44,10 +48,12 @@ pinja [INPUT_DIRPATH]
 pinja --help
 ```
 
-### Example:
+### Example Command:
 
 ```
 pinja -m AEP256 test
+pinja data/infilePE -f pe
+pinja data/infileELF -f elf
 ```
 
 ### DEMO:
@@ -61,7 +67,9 @@ pendding...
 
 Project Organization
 ------------
-
+    
+    pinja
+    │ 
     ├── data
     │   ├── infileELF
     │   ├── infileELF_1file
@@ -88,18 +96,17 @@ Project Organization
 
 --------
 
-### Reference(for ALL committer):
+### Reference(for ALL contributor):
 
-#### library manual* 
-[https://pypi.org/project/click/](https://pypi.org/project/click/)
+[click  https://pypi.org/project/click/](https://pypi.org/project/click/)
 
-[https://www.capstone-engine.org/lang_python.html](https://www.capstone-engine.org/lang_python.html)
+[capstone  https://www.capstone-engine.org/lang_python.html](https://www.capstone-engine.org/lang_python.html)
 
-[https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
+[glob  https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
 
-[https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
+[elftools  https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
 
-[https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
+[pefile  https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
 
 
 --------
