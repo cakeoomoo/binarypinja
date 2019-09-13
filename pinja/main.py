@@ -5,11 +5,21 @@ import logging
 from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
+import glob
 
+# local import 
 from pinja.reference.AEP256_01 import *
 from pinja.reference.use_doc2vec import *
 from pinja.color.color import *
+from pinja.getfileinfo.getfileinfo import *
+from pinja.getbin.getbin import *
 
+
+
+
+def getallfiles(input_dirpath):
+    files = glob.glob(input_dirpath + '/*' )
+    return files
 
 
 @click.command()
@@ -28,9 +38,11 @@ def main(input_dirpath, output_dirpath, format, mode, byte):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    print_green('start program')
+    print_green('----start program----')
     
-    # special routine to refer
+    '''
+        special routine to refer
+    '''
     if mode == 'AEP256':
         get_AEP256(input_dirpath, output_dirpath)
         return 
@@ -38,17 +50,36 @@ def main(input_dirpath, output_dirpath, format, mode, byte):
         get_elf_info('data/infileELF_1file/touch')
         return 
 
-    # basic routine
-    if format == 'pe' and mode == 'bin':
-        pass
-    elif format == 'pe' and mode == 'asm':
-        pass
-    elif format == 'elf' and mode == 'bin':
-        pass
-    elif format == 'elf' and mode == 'asm':
-        pass
+    '''
+        basic routine
+    '''
+    # get files list
+    files = getallfiles(input_dirpath)
+
+    # get files entry point
+    e_point_list = []
+    if format == 'pe':
+        for file in files:
+            if os.path.isdir(file):
+                continue
+            get_pe_entrypoint(file)
+    elif format = 'elf':
+        for file in files:
+            if os.path.isdir(file):
+                continue
+            get_elf_entrypoint(file)
     else:
-        print_red("Error: argumetns is wrong!")
+        print_red('argument(mode) is wrong!')
+
+    # get files all symbol
+        #TODO
+
+    # get binary code and make binaryfiles
+        #TODO
+
+    # get dissaasemble code and make the dataset(CSV)
+        #TODO
+
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

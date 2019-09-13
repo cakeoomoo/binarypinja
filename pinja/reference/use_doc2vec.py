@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-import pinja.bin2asm
+from pinja.bin2asm.bin2asm import *
 from pinja.color.color import *
 import glob
 import re

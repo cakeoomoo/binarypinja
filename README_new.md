@@ -14,15 +14,21 @@ This project is to make dataset for sevearal machine learnning program and model
 ## FEATURE:
 
 - output CSVfiles
-    - out_
-    - fe
-pendding...
+    - [dirname].csv :  extract entrypoint for all files
+    - [dirname].bin.csv :  extract binarycode for all files
+    - [dirname].allbin.csv :  extract text section for all files
+    - [dirname].bin.asm.csv :  convert disassembly files for all files
+    - [dirname].bin.asm.repl.csv :  replace to arbitrary code from code of disassembly files for all files
+
+- output similary comparison with disassembly code by using doc2vec 
+    - print list on CLI
 
 
 ### HOW TO INSTALL:
 
-pendding...
-
+```
+pip3 install .      (non check)
+```
 
 ### HOW TO INSTALL(developper):
 
