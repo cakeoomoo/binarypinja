@@ -68,7 +68,8 @@ pendding...
 Project Organization
 ------------
     
-    pinja
+    binarypinja
+    │ 
     │ 
     ├── data
     │   ├── infileELF
