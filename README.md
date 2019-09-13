@@ -1,4 +1,4 @@
-binarypinja
+BINARY PINJA
 ==============================
 
 [![status](https://img.shields.io/badge/test-v0.0.1-ff7964.svg?style=for-the-badge)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
@@ -11,20 +11,39 @@ binarypinja
 This project is to make dataset for sevearal machine learnning program and model of the natural processng language.
 
 
-HOW TO INSTALL:
+##FEATURE:
+
+pendding...
+
+
+###HOW TO INSTALL:
+
+pendding...
+
+
+###HOW TO INSTALL(developper):
 
 ```
 pip3 install -r requirements.txt  
 pip3 install -e .  
 ```
 
-
-HOW TO USE:
+###HOW TO USE:
 
 ```
 pinja [input-directory]
 pinja --help
 ```
+
+###Example:
+
+```
+pinja -m AEP256 test
+```
+
+###DEMO:
+
+pendding...
 
 
 ![pinjaTree](http://github.com/cakeoomoo/binarypinja/image.jpg "pinja tree")
@@ -34,21 +53,29 @@ pinja --help
 Project Organization
 ------------
 
+    ├── data  <--------------------dataset
+    │   ├── infileELF
+    │   ├── infileELF_1file
+    │   └── infilePE
+    ├── image.jpg
     ├── LICENSE
-    ├── README.md          <- The top-level README for developers using this project.
-    ├── data
-    ├── requirements.txt   <- The requirements file for reproducing the analysis environment, e.g.
-    │
-    ├── setup.py           <- makes project pip installable (pip install -e .) so src can be imported
-    └── pinja              <- Source code for use in this project.
-        ├── __init__.py    <- Makes src a Python module
-        │
-        ├── main.py        <- Scripts to download or generate data
-        │
-        ├── exec2asm.py    <- Scripts to turn raw data into features for modeling
-        │
-        └── visualization  <- Scripts to create exploratory and results oriented visualizations
-            └── visualize.py
+    ├── pinja
+    │   ├── bin2asm
+    │   │   └── bin2asm.py  <--------------------working!!!
+    │   ├── color
+    │   │   ├── color.py
+    │   ├── getfileinfo
+    │   │   └──  <--------------------todo!!!
+    │   ├── getbin
+    │   │   └──  <--------------------todo!!!
+    │   ├── __init__.py
+    │   ├── main.py
+    │   └── reference
+    │       ├── AEP256_01.py
+    │       └── use_doc2vec.py
+    ├── README.md
+    ├── requirements.txt
+    └── setup.py
 
 --------
 

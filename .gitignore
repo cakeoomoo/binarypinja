@@ -1,0 +1,8 @@
+/pinja/*.pyc
+/color/*.pyc
+/getbin/*.pyc
+/getfileinfo/*.pyc
+/reference/*.pyc
+/pinja/__pycache__
+/binarypinja.egg-info
+/out

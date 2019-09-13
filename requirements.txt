@@ -10,7 +10,7 @@ gensim
 elftools
 pyelftools
 capstone
-glob
+glob3
 click
 pefile
 pathlib
