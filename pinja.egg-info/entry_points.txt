@@ -1,0 +1,3 @@
+[console_scripts]
+pinja = pinja.main:main
+

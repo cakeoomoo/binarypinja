@@ -1,0 +1,17 @@
+# local package
+-e .
+
+# external requirements
+click
+coverage
+awscli
+pandas
+gensim
+elftools
+pyelftools
+capstone
+glob
+click
+pefile
+pathlib
+python-dotenv>=0.5.1
