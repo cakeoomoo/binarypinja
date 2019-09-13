@@ -1,17 +1,27 @@
 binarypinja
 ==============================
 
+[![status](https://img.shields.io/badge/test-v0.0.1-ff7964.svg?style=for-the-badge)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
+
+[![GitHub license](https://img.shields.io/github/license/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
+
+
+
+
 This project is to make dataset for sevearal machine learnning program and model of the natural processng language.
 
 
 HOW TO INSTALL:
 
 $ pip3 install -e .  
+
 $ pip3 install -r requirements.txt  
 
 
 HOW TO USE:
+
 $ pinja [input-directory]
+
 $ pinja --help
 
 
