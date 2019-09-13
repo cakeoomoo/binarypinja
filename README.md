@@ -13,15 +13,15 @@ This project is to make dataset for sevearal machine learnning program and model
 
 ## FEATURE:
 
-- output CSVfiles
-    - [dirname].csv :  extract entrypoint for all files
-    - [dirname].bin.csv :  extract binarycode for all files
-    - [dirname].allbin.csv :  extract text section for all files
-    - [dirname].bin.asm.csv :  convert disassembly files for all files
-    - [dirname].bin.asm.repl.csv :  replace to arbitrary code from code of disassembly files for all files
+- Output CSVfiles
+    - `[dirname].csv`             :  Extract entrypoint for all files
+    - `[dirname].bin.csv`         :  Extract binarycode for all files
+    - `[dirname].allbin.csv`      :  Extract text section for all files
+    - `[dirname].bin.asm.csv`     :  Convert disassembly files for all files
+    - `[dirname].bin.asm.repl.csv`:  Replace to arbitrary code from code of disassembly files for all files
 
-- output similary comparison with disassembly code by using doc2vec 
-    - print list on CLI
+- Output similary comparison with disassembly code by using doc2vec 
+    - Print list on CLI
 
 
 ### HOW TO INSTALL:
@@ -37,10 +37,10 @@ pip3 install -r requirements.txt
 pip3 install -e . 
 ```
 
-### HOW TO USE:
+### Usage:
 
 ```
-pinja [input-directory]
+pinja `[input-directory]`
 pinja --help
 ```
 
@@ -55,7 +55,7 @@ pinja -m AEP256 test
 pendding...
 
 
-![pinjaTree](http://github.com/cakeoomoo/binarypinja/image.jpg "pinja tree")
+![pinjaTree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree")
 
 
 
