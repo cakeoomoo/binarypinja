@@ -3,8 +3,7 @@
 from elftools.elf.elffile import ELFFile
 from capstone import *
 import glob
-#from pinja.color import *
-from color import *
+from pinja.color.color import *
 
 
 def byte2asm(filepath, mode):

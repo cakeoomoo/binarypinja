@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 import pinja.bin2asm
-from pinja.color import *
+from pinja.color.color import *
 import glob
 import re
 from capstone import *
