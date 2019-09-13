@@ -11,37 +11,37 @@ BINARY PINJA
 This project is to make dataset for sevearal machine learnning program and model of the natural processng language.
 
 
-##FEATURE:
+## FEATURE:
 
 pendding...
 
 
-###HOW TO INSTALL:
+### HOW TO INSTALL:
 
 pendding...
 
 
-###HOW TO INSTALL(developper):
+### HOW TO INSTALL(developper):
 
 ```
 pip3 install -r requirements.txt  
 pip3 install -e .  
 ```
 
-###HOW TO USE:
+### HOW TO USE:
 
 ```
 pinja [input-directory]
 pinja --help
 ```
 
-###Example:
+### Example:
 
 ```
 pinja -m AEP256 test
 ```
 
-###DEMO:
+### DEMO:
 
 pendding...
 
