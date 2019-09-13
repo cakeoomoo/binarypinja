@@ -40,7 +40,7 @@ pip3 install -e .
 ### Usage:
 
 ```
-pinja `[input-directory]`
+pinja [INPUT_DIRPATH]
 pinja --help
 ```
 
