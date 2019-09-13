@@ -88,4 +88,20 @@ Project Organization
 
 --------
 
+### Reference(for ALL committer):
+
+#### library manual* 
+[https://pypi.org/project/click/](https://pypi.org/project/click/)
+
+[https://www.capstone-engine.org/lang_python.html](https://www.capstone-engine.org/lang_python.html)
+
+[https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
+
+[https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
+
+[https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
+
+
+--------
+
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
