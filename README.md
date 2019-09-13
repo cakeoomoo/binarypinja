@@ -5,7 +5,7 @@ binarypinja
 
 [![GitHub license](https://img.shields.io/github/license/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
 
-
+[![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
 
 
 This project is to make dataset for sevearal machine learnning program and model of the natural processng language.
@@ -13,16 +13,22 @@ This project is to make dataset for sevearal machine learnning program and model
 
 HOW TO INSTALL:
 
-$ pip3 install -e .  
-
-$ pip3 install -r requirements.txt  
+```
+pip3 install -r requirements.txt  
+pip3 install -e .  
+```
 
 
 HOW TO USE:
 
-$ pinja [input-directory]
+```
+pinja [input-directory]
+pinja --help
+```
 
-$ pinja --help
+
+![pinjaTree](http://github.com/cakeoomoo/binarypinja/image.jpg "pinja tree")
+
 
 
 Project Organization
@@ -37,16 +43,9 @@ Project Organization
     └── pinja              <- Source code for use in this project.
         ├── __init__.py    <- Makes src a Python module
         │
-        ├── data           <- Scripts to download or generate data
-        │   └── make_dataset.py
+        ├── main.py        <- Scripts to download or generate data
         │
-        ├── features       <- Scripts to turn raw data into features for modeling
-        │   └── build_features.py
-        │
-        ├── models         <- Scripts to train models and then use trained models to make
-        │   │                 predictions
-        │   ├── predict_model.py
-        │   └── train_model.py
+        ├── exec2asm.py    <- Scripts to turn raw data into features for modeling
         │
         └── visualization  <- Scripts to create exploratory and results oriented visualizations
             └── visualize.py
