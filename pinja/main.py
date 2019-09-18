@@ -60,7 +60,7 @@ def main(input_dirpath, output_dirpath, format, mode, byte):
         for file in files:
             if os.path.isdir(file):
                 continue
-            entry_pointlist.append([file, get_pe_entrypoint(file)])
+            entry_pointlist.append([file, get_pe_raw_entrypoint(file)])
     elif format == 'elf':
         for file in files:
             if os.path.isdir(file):
