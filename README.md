@@ -7,25 +7,26 @@ BINARY PINJA
 
 [![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
 
-
-This project is to make dataset for sevearal machine learnning program at natural processng language and convert to binary-code and disassembly code from executable files and make these CSV-files.
+This tool has the ability to create datasets for several ML(machine learning) programs in a NLP(natural language processing).
+The main feature is converted to binary-code and disassembly code from executable files, and make these CSV-files for the ML.
+The advantage is more simpler usage, and to use on free and open-source without Paid tools like IDA-Python.
 
 
 ## FEATURE:
 
-- Input executable files(directory path)
+- Input
     - `PEformat(.exe) files`
-    - `ELFformat files`
+    - `ELFformat execfiles`
 
-- Output CSVfiles
-    - `[dirname].csv`             :  Extract entrypoint for all files
-    - `[dirname].bin.csv`         :  Extract binarycode for all files
+- Output
+    - `[dirname].csv`             :  Extract entry-point for all files
+    - `[dirname].bin.csv`         :  Extract binary-code for all files
     - `[dirname].allbin.csv`      :  Extract text section for all files
-    - `[dirname].bin.asm.csv`     :  Convert disassembly files for all files
-    - `[dirname].bin.asm.repl.csv`:  Replace to arbitrary code from code of disassembly files for all files
+    - `[dirname].bin.asm.csv`     :  Convert to each disassembly files from all files
+    - `[dirname].bin.asm.repl.csv`:  Transform disassembly code using arbitrary rules for easy handling in ML
 
-- Output result of the similary comparison at disassembly-codes by using doc2vec 
-    - Print result-lists on CLI
+- Output2
+    - Print result on console :  print the similarity comparison value at disassembly codes by using doc2vec
 
 
 ### HOW TO INSTALL:
