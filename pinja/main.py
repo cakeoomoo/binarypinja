@@ -15,8 +15,6 @@ from pinja.getfileinfo.getfileinfo import *
 from pinja.getbin.getbin import *
 
 
-
-
 def getallfiles(input_dirpath):
     files = glob.glob(input_dirpath + '/*' )
     return files
