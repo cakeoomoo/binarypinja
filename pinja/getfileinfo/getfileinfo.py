@@ -10,6 +10,7 @@ from pinja.color.color import *
 '''
     TODO
 '''
+
 def get_pe_entrypoint(filepath):
     with open(filepath, 'rb') as f:
         pe = pefile.PE(f.name)
@@ -18,6 +19,30 @@ def get_pe_entrypoint(filepath):
             print_blue("{0}".format(pe.OPTIONAL_HEADER.AddressOfEntryPoint))
         entrypoint = pe.OPTIONAL_HEADER.AddressOfEntryPoint
     return entrypoint
+
+
+def get_pe_raw_entrypoint(filepath):
+    with open(filepath, 'rb') as f:
+        pe = pefile.PE(f.name)
+        entrypoint = pe.OPTIONAL_HEADER.AddressOfEntryPoint
+
+        try:
+            section = next(
+                s for s in pe.sections
+                if 0 <= entrypoint - s.VirtualAddress <= s.SizeOfRawData)
+        except StopIteration:
+            raise Exception('No section contains entrypoint.')
+        
+        entrypoint_raw = (entrypoint
+                          - section.VirtualAddress
+                          + section.PointerToRawData)
+        
+        if 0:
+            print_green("{0}".format(pe.OPTIONAL_HEADER))
+            print_green("{0}".format(section))
+            print_blue("{0}".format(entrypoint_raw))
+
+    return entrypoint_raw
 
 
 def get_elf_entrypoint(filepath):
