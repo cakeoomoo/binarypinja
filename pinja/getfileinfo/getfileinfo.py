@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 from elftools.elf.elffile import ELFFile
-#from pefile import PE
+from elftools.elf.relocation import RelocationSection
 import pefile
 
 from pinja.color.color import *
@@ -26,7 +26,6 @@ def get_pe_raw_entrypoint(filepath):
             section = next(
                 s for s in pe.sections
                 if 0 <= entrypoint - s.VirtualAddress <= s.SizeOfRawData)
-            print_yelow('check')
         except StopIteration:
             raise Exception('No section contains entrypoint.')
         
@@ -34,7 +33,7 @@ def get_pe_raw_entrypoint(filepath):
                           - section.VirtualAddress
                           + section.PointerToRawData)
         
-        if 1:
+        if 0:
             print_green("{0}".format(pe.OPTIONAL_HEADER))
             print_green("{0}".format(section))
             print_blue("{0}".format(entrypoint_raw))
@@ -52,17 +51,37 @@ def get_elf_entrypoint(filepath):
     return entrypoint
 
 
-
-
+def get_pe_ALLsymbol_address(filepath):
+    pass
 
 
 
 def get_elf_ALLsymbol_address(filepath):
-    pass
+    allsymbol = []
+    with open(filepath, 'rb') as f:
+        elf = ELFFile(f)
+
+        for section in elf.iter_sections():
+            symbol = [hex(section['sh_addr']), section.name]
+            if 0:
+                print_green("{0}".format(symbol))
+
+        for section in elf.iter_sections():
+            if isinstance(section, RelocationSection):
+                if 0:
+                    print_green("{0}".format(f'{section.name}:'))
+                symbol_table = elf.get_section(section['sh_link'])
+                for relocation in section.iter_relocations():
+                    symbol = symbol_table.get_symbol(relocation['r_info_sym'])
+                    addr = hex(relocation['r_offset'])
+                    if 1:
+                        print_green("{0}".format(f'{symbol.name} {addr}'))
+        print_yelow('--------------------------------')
+
+    return 0
 
 
-def get_pe_ALLsymbol_address(filepath):
-    pass
+
 
 
 
