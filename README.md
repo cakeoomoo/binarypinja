@@ -100,15 +100,29 @@ Project Organization
 
 ### Reference(for ALL contributor):
 
-[click  https://pypi.org/project/click/](https://pypi.org/project/click/)
+[click----https://pypi.org/project/click/](https://pypi.org/project/click/)
 
-[capstone  https://www.capstone-engine.org/lang_python.html](https://www.capstone-engine.org/lang_python.html)
+[capstone----https://www.capstone-engine.org/lang_python.html](https://www.capstone-engine.org/lang_python.html)
 
-[glob  https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
+[glob----https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
 
-[elftools  https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
+[elftools----https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
 
-[pefile  https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
+[elftools-user's-guide----https://github.com/eliben/pyelftools/wiki/User%27s-guide](https://github.com/eliben/pyelftools/wiki/User%27s-guide)
+
+
+
+[pefile----https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
+
+[refer blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
+
+
+
+[ELF----https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing](https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing)
+
+[ELF----https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b](https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b)
+
+
 
 
 --------
