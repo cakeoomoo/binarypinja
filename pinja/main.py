@@ -6,6 +6,7 @@ from pathlib import Path
 from dotenv import find_dotenv, load_dotenv
 import os
 import glob
+import magic
 
 # local import
 from pinja.reference.AEP256_01 import *
@@ -20,6 +21,16 @@ def getallfiles(input_dirpath):
     return files
 
 
+def checkfiletype(filepath):
+    # check filetype
+    f = magic.Magic(mime=True, uncompress=True)
+    if (f.from_file(filepath) != 'application/x-dosexec') and (f.from_file(filepath) != 'application/x-executable'):
+        if 0:
+            print_red("{0} is not exec-file".format(filepath))
+        return False
+    return True
+
+
 @click.command()
 @click.option(
     '-m',
@@ -27,14 +38,14 @@ def getallfiles(input_dirpath):
     'mode',
     default='bin',
     help='AEP256: get AEP(256byte)\ndoc2vec: run the doc2vec\nbin: binCode\nasm: asmCode\ndefault: bin')
-@click.option('-f', '--fmt', 'format', default='pe',
+@click.option('-f', '--fmt', 'fmt', default='pe',
               help='pe: PEformat\nelf: ELFformat\ndefault:pe')
 @click.option('-o', '--out', 'output_dirpath', default='out',
               help='output directory path\ndefault:out')
 @click.option('-b', '--byte', 'byte', default='256',
               help='byte: get number of byte\ndefault: 256')
 @click.argument('input_dirpath', type=click.Path())
-def main(input_dirpath, output_dirpath, format, mode, byte):
+def main(input_dirpath, output_dirpath, fmt, mode, byte):
     """ Runs data processing scripts to turn assembler data from the binary into
         cleaned data ready to be analyzed.
     """
@@ -57,40 +68,29 @@ def main(input_dirpath, output_dirpath, format, mode, byte):
     '''
     # get files list
     files = getallfiles(input_dirpath)
+    files = list(filter(checkfiletype, files))
+    files = list(filter(os.path.isfile, files))
 
     # get files entry point
     entry_pointlist = []
-    if format == 'pe':
-        for file in files:
-            if os.path.isdir(file):
-                continue
+    for file in files:
+        if fmt == 'pe':
             entry_pointlist.append([file, get_pe_raw_entrypoint(file)])
-    elif format == 'elf':
-        for file in files:
-            if os.path.isdir(file):
-                continue
+        elif fmt == 'elf':
             entry_pointlist.append([file, get_elf_entrypoint(file)])
-    else:
-        print_red('argumetns error!')
-            
+        else:
+            print_red('argumetns error!')
+    print_green(entry_pointlist)
 
     # get files all symbol
     symbol_list = []
-    if format == 'pe':
-        for file in files:
-            if os.path.isdir(file):
-                continue
+    for file in files:
+        if fmt == 'pe':
             symbol_list.append([file, get_pe_ALLsymbol_address(file)])
-            
-    elif format == 'elf':
-        for file in files:
-            if os.path.isdir(file):
-                continue
+        elif fmt == 'elf':
             symbol_list.append([file, get_elf_ALLsymbol_address(file)])
-            
-    else:
-        print_red('argumetns error!')
-
+        else:
+            print_red('argumetns error!')
     print_green(symbol_list)
 
     # get binary code and make binaryfiles
