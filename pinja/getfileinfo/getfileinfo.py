@@ -2,6 +2,8 @@
 
 from elftools.elf.elffile import ELFFile
 from elftools.elf.relocation import RelocationSection
+from elftools.elf.sections import StringTableSection
+from elftools.elf.sections import SymbolTableSection
 import pefile
 
 from pinja.color.color import *
@@ -28,11 +30,9 @@ def get_pe_raw_entrypoint(filepath):
                 if 0 <= entrypoint - s.VirtualAddress <= s.SizeOfRawData)
         except StopIteration:
             raise Exception('No section contains entrypoint.')
-        
         entrypoint_raw = (entrypoint
                           - section.VirtualAddress
                           + section.PointerToRawData)
-        
         if 0:
             print_green("{0}".format(pe.OPTIONAL_HEADER))
             print_green("{0}".format(section))
@@ -57,34 +57,22 @@ def get_pe_ALLsymbol_address(filepath):
 
 
 def get_elf_ALLsymbol_address(filepath):
+    print_yelow('--------------------------------')
     allsymbol = []
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
 
         for section in elf.iter_sections():
             symbol = [hex(section['sh_addr']), section.name]
-            if 0:
-                print_green("{0}".format(symbol))
+            print_yelow("{0}".format(symbol))
+            print_purple("{0}".format(f'{section.name}:'))
+            print(dir(section))
 
-        for section in elf.iter_sections():
-            if isinstance(section, RelocationSection):
-                if 0:
-                    print_green("{0}".format(f'{section.name}:'))
+            if isinstance(section, StringTableSection):
+                print_red("{0}".format(f'{section.name}:'))
                 symbol_table = elf.get_section(section['sh_link'])
-                for relocation in section.iter_relocations():
-                    symbol = symbol_table.get_symbol(relocation['r_info_sym'])
-                    addr = hex(relocation['r_offset'])
-                    if 1:
-                        print_green("{0}".format(f'{symbol.name} {addr}'))
-        print_yelow('--------------------------------')
-
-    return 0
-
-
-
-
-
-
-
-
+            if isinstance(section, SymbolTableSection):
+                print_red("{0}".format(f'{section.name}:'))
+                symbol_table = elf.get_section(section['sh_link'])
+    return allsymbol
 
