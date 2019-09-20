@@ -12,7 +12,7 @@ The main feature is converted to binary-code and disassembly-code from executabl
 The advantage is more simpler usage, and to use on free and open-source without Paid tools like IDA-Python.
 
 
-## FEATURE:
+## FEATURES:
 
 - Input
     - `PEformat(.exe) files`
@@ -106,23 +106,23 @@ Project Organization
 
 [glob----https://docs.python.org/3/library/glob.html](https://docs.python.org/3/library/glob.html)
 
+[pefile----https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
+
+[pefile-Howtouse----https://github.com/erocarrera/pefile/blob/wiki/UsageExamples.md#introduction](https://github.com/erocarrera/pefile/blob/wiki/UsageExamples.md#introduction)
+
+[PEheader----https://blog.kowalczyk.info/articles/pefileformat.html](https://blog.kowalczyk.info/articles/pefileformat.html)
+
 [elftools----https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
 
 [elftools-user's-guide----https://github.com/eliben/pyelftools/wiki/User%27s-guide](https://github.com/eliben/pyelftools/wiki/User%27s-guide)
 
 [elftools-example----https://www.programcreek.com/python/example/105189/elftools.elf.elffile.ELFFile](https://www.programcreek.com/python/example/105189/elftools.elf.elffile.ELFFile)
 
-
-
-[pefile----https://pypi.org/project/pefile/](https://pypi.org/project/pefile/)
-
-[refer blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
-
-
-
 [ELF----https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing](https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing)
 
 [ELF----https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b](https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b)
+
+[Refer reversing tool blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
 
 
 
