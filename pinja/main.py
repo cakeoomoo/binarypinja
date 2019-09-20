@@ -24,8 +24,8 @@ def getallfiles(input_dirpath):
 def checkfiletype(filepath):
     # check filetype
     f = magic.Magic(mime=True, uncompress=True)
-    if (f.from_file(filepath) != 'application/x-dosexec') and (f.from_file(filepath) != 'application/x-executable'):
-        if 0:
+    if (f.from_file(filepath) != 'application/x-dosexec') and (f.from_file(filepath) != 'application/x-executable') and (f.from_file(filepath) != 'application/x-sharedlib'):
+        if 1:
             print_red("{0} is not exec-file".format(filepath))
         return False
     return True
