@@ -78,7 +78,6 @@ def get256byte2asm(filepath, mode):
         # entry point of touch(binary)
         addr_offset = starttAddr_textSection + 1000
 
-
         md = Cs(CS_ARCH_X86, CS_MODE_64)
 
         countbyte = 0

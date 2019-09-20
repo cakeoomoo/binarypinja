@@ -25,7 +25,7 @@ def checkfiletype(filepath):
     # check filetype
     f = magic.Magic(mime=True, uncompress=True)
     if (f.from_file(filepath) != 'application/x-dosexec') and (f.from_file(filepath) != 'application/x-executable') and (f.from_file(filepath) != 'application/x-sharedlib'):
-        if 1:
+        if 0:
             print_red("{0} is not exec-file".format(filepath))
         return False
     return True
@@ -51,10 +51,8 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
     """
     logger = logging.getLogger(__name__)
     logger.info('making final data set from raw data')
-    print_green('----start program----')
 
-    '''
-        special routine into reference folder
+    ''' special routine into reference folder
     '''
     if mode == 'AEP256':
         get_AEP256(input_dirpath, output_dirpath)
@@ -63,15 +61,15 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
         get_elf_info('data/infileELF_1file/touch')
         return
 
+    ''' basic routine
     '''
-        basic routine
-    '''
-    # get files list
+    # get files
     files = getallfiles(input_dirpath)
     files = list(filter(checkfiletype, files))
     files = list(filter(os.path.isfile, files))
+    print_yelow('-------------------------------------------------------------')
 
-    # get files entry point
+    # get entry point
     entry_pointlist = []
     for file in files:
         if fmt == 'pe':
@@ -79,10 +77,11 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
         elif fmt == 'elf':
             entry_pointlist.append([file, get_elf_entrypoint(file)])
         else:
-            print_red('argumetns error!')
+            print('Error! argv!!!')
     print_green(entry_pointlist)
+    print_yelow('-------------------------------------------------------------')
 
-    # get files all symbol
+    # get all symbol
     symbol_list = []
     for file in files:
         if fmt == 'pe':
@@ -90,15 +89,27 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
         elif fmt == 'elf':
             symbol_list.append([file, get_elf_ALLsymbol_address(file)])
         else:
-            print_red('argumetns error!')
+            print('Error! argv!!!')
     print_green(symbol_list)
+    print_yelow('-------------------------------------------------------------')
 
     # get binary code and make binaryfiles
-    # TODO
+    binarycodelist = []
+    for file in files:
+        if fmt == 'pe':
+            binarycodelist.append([file, get_pe_binarycode(file)])
+        elif fmt == 'elf':
+            binarycodelist.append([file, get_elf_binarycode(file)])
+        else:
+            print('Error! argv!!!')
+    print_green(binarycodelist)
+
+    print_yelow('-------------------------------------------------------------')
 
     # get dissaasemble code and make the dataset(CSV)
     # TODO
 
+    print_yelow('-------------------------------------------------------------')
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

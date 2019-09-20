@@ -3,8 +3,11 @@
 from pinja.color.color import *
 
 
-'''
-    TODO
-'''
+def get_pe_binarycode(file):
+    pass
+
+
+def get_elf_binarycode(file):
+    pass
 
 

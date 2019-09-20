@@ -55,7 +55,6 @@ def get_c_filelist(path_c):
 
 
 def learnnning(sentences):
-
     if 1:
         model = models.Doc2Vec(
             sentences,
@@ -126,10 +125,8 @@ def search_loaded_model():
 
 
 '''
-make csv fie by using pandas
+    make csv fie by using pandas
 '''
-
-
 def save_file(filename, output_dir, listA):
     print_blue(listA)
     print_yelow(filename)
@@ -139,10 +136,8 @@ def save_file(filename, output_dir, listA):
 
 
 '''
-get elf header information
+    get elf header information
 '''
-
-
 def get_elf_info(filepath_name):
     print_green(filepath_name)
     with open(filepath_name, 'rb') as f:
@@ -180,7 +175,6 @@ def get_elf_info(filepath_name):
                 print_blue(data.structs)
             print_purple(vars(data.structs))
             print_blue(data.structs.Elf_addr)
-
             print_green(data.address_offsets(data, 0))
 
             #VA = data.VirtualAddress
@@ -221,8 +215,6 @@ argumetns:
     splitmode
         arguments of byte2asm() function's mode --> 'int' or 'ope'
 '''
-
-
 def ctrl_file_lines(
         path_asm,
         learnnning_mode,
@@ -266,8 +258,6 @@ def ctrl_file_lines(
 The fuction emit binarycode which has optimization, cross architecture,
 other compiler from c source code in this directorey.
 '''
-
-
 def make_compilestring(_fn, locate):
     obcuscated_clang_path = '/home/n/TOOL/build_ollvm/bin'
     obcuscated_clang = obcuscated_clang_path + '/clang'
@@ -330,9 +320,7 @@ def autocompile():
 
 
 if __name__ == '__main__':
-
     get_elf_info(path_HOME + '/tool/pylib/doc2vec_testcode/bin_data/ls')
-
     if 0:
         # run doc2vec
         ctrl_file_lines(
