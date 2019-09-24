@@ -97,16 +97,6 @@ def get_pe_ALLsymbol_address(filepath):
         if 1:
             print_blue("{}".format(pe.dump_info()))
 
-        if 1:
-            for section in pe.sections:
-                print_green("{}{}{}{}{}".format(
-                    section.Name,
-                    hex(section.VirtualAddress),
-                    hex(section.Misc_VirtualSize),
-                    section.SizeOfRawData,
-                    section.get_entropy()))
-                if section.Name == '.text':
-                    print_red("{}{}".format((section.PointerToRawData),hex(section.Misc_VirtualSize)))
 
         if 0:
             allsymbol.append([0, 0, 0])
