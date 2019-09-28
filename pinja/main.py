@@ -88,28 +88,25 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
             symbol_list.append([file, get_pe_ALLsymbol_address(file)])
         elif fmt == 'elf':
             symbol_list.append([file, get_elf_ALLsymbol_address(file)])
+            #get_elf_ALLsymbol_address_otherinformation(file)
         else:
             print('Error! argv!!!')
     print_green(symbol_list)
     print_yelow('-------------------------------------------------------------')
 
-    # get binary code and make binaryfiles
-    binarycodelist = []
-    for file in files:
-        if fmt == 'pe':
-            binarycodelist.append([file, get_pe_binarycode(file)])
-        elif fmt == 'elf':
-            binarycodelist.append([file, get_elf_binarycode(file)])
-        else:
-            print('Error! argv!!!')
+    # get binary code and disassemble code
+    asmcodelist = []
+    asmcodelist.append([get_elf_binarycode(symbol_list)])
     print_green(binarycodelist)
 
     print_yelow('-------------------------------------------------------------')
 
-    # get dissaasemble code and make the dataset(CSV)
-    # TODO
+    # make the dataset(CSV) from assemble code, binarycode and etc...
+    df = pd.DataFrame(asmcodelist)
+    df.to_csv("disassemble.csv")
 
     print_yelow('-------------------------------------------------------------')
+    print_green('Finish!')
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'

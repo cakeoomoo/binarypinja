@@ -126,4 +126,4 @@ def elf2asm(input_dir):
 
 
 if __name__ == '__main__':
-    elf2asm('infileELF_1file/*')
+    elf2asm('infileELF/*')

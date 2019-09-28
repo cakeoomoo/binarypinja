@@ -138,25 +138,46 @@ def get_elf_ALLsymbol_address(filepath):
         else:
             print_red("{0}: No symbol-info".format(f.name))
             allsymbol.append([0, 0, 0])
+
+        # dynsym
+        if 0:
+            dynsym = elf.get_section_by_name('.dynsym')
+            if dynsym is not None:
+                for element in dynsym.iter_symbols():
+                    # print debug
+                    if 0:
+                        print_red("ALL: {0}, ".format(dir(element.entry)))
+                        print_purple_noLF("name: {0}, ".format(element.name))
+                        print_blue_noLF("st_name: {0}".format(element.entry['st_name']))
+                        print_green_noLF("address: {0}, ".format(hex(element.entry['st_value'])))
+                        print_red("size {0},".format(hex(element.entry['st_size'])))
+                    if element.entry['st_size'] != 0:
+                        allsymbol.append([element.name, element.entry['st_value'], element.entry['st_size']])
+            else:
+                print_red("{0}: No symbol-info".format(f.name))
+                allsymbol.append([0, 0, 0])
+
     return allsymbol
 
 
 # Reference
 def get_elf_ALLsymbol_address_otherinformation(filepath):
-    for section in elf.iter_sections():
-        symbol = [hex(section['sh_addr']), section.name]
-        if 0:
-            print_yelow("{0}".format(symbol))
-            print_purple("{0}".format(f'{section.name}'))
-            print(dir(section))
-        if 0:
-            if isinstance(section, StringTableSection):
-                print_red("{0}".format(f'{section.name}:'))
-                symbol_table = elf.get_section(section['sh_link'])
+    with open(filepath, 'rb') as f:
+        elf = ELFFile(f)
+        for section in elf.iter_sections():
+            symbol = [hex(section['sh_addr']), section.name]
+            if 0:
+                print_yelow("{0}".format(symbol))
+                print_purple("{0}".format(f'{section.name}'))
+                print(dir(section))
+            if 1:
+                if isinstance(section, StringTableSection):
+                    print_red("{0}".format(f'{section.name}:'))
+                    symbol_table = elf.get_section(section['sh_link'])
 
-            if isinstance(section, SymbolTableSection):
-                print_red("{0}".format(f'{section.name}:'))
-                symbol_table = elf.get_section(section['sh_link'])
-        print_red(dir(elf.get_section(section['sh_link']).name))
-    print_green(elf.get_section_by_name('.text')['sh_addr'])
-    print_green(elf.get_section_by_name('.text')['sh_name'])
+                if isinstance(section, SymbolTableSection):
+                    print_red("{0}".format(f'{section.name}:'))
+                    symbol_table = elf.get_section(section['sh_link'])
+            #print_red(dir(elf.get_section(section['sh_link']).name))
+        print_green(elf.get_section_by_name('.text')['sh_addr'])
+        print_green(elf.get_section_by_name('.text')['sh_name'])
