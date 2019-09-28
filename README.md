@@ -112,6 +112,7 @@ Project Organization
 
 [PEheader----https://blog.kowalczyk.info/articles/pefileformat.html](https://blog.kowalczyk.info/articles/pefileformat.html)
 
+
 [elftools----https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
 
 [elftools-user's-guide----https://github.com/eliben/pyelftools/wiki/User%27s-guide](https://github.com/eliben/pyelftools/wiki/User%27s-guide)
@@ -125,6 +126,21 @@ Project Organization
 [Refer reversing tool blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
 
 
+--------
+
+# todo reading links
+
+[https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92](https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92)
+
+[https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY](https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY)
+
+[https://axcheron.github.io/pe-format-manipulation-with-pefile/](https://axcheron.github.io/pe-format-manipulation-with-pefile/)
+
+[https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe](https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe)
+
+[https://www.programcreek.com/python/example/91048/pefile.PE](https://www.programcreek.com/python/example/91048/pefile.PE)
+
+[https://ninoseki.hatenadiary.org/entry/20091029/1256820086](https://ninoseki.hatenadiary.org/entry/20091029/1256820086)
 
 
 --------
