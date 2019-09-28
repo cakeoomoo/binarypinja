@@ -7,6 +7,7 @@ from dotenv import find_dotenv, load_dotenv
 import os
 import glob
 import magic
+import pprint
 
 # local import
 from pinja.reference.AEP256_01 import *
@@ -96,17 +97,16 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
 
     # get binary code and disassemble code
     asmcodelist = []
-    asmcodelist.append([get_elf_binarycode(symbol_list)])
-    print_green(binarycodelist)
+    asmcodelist = get_elf_binarycode(symbol_list)
+    pprint.pprint(asmcodelist)
 
     print_yelow('-------------------------------------------------------------')
 
     # make the dataset(CSV) from assemble code, binarycode and etc...
     df = pd.DataFrame(asmcodelist)
-    df.to_csv("disassemble.csv")
-
-    print_yelow('-------------------------------------------------------------')
-    print_green('Finish!')
+    output_filename = "OUT_dirnam.bin.asm.csv"
+    df.to_csv(output_filename)
+    print_green('output: {}!'.format(output_filename))
 
 if __name__ == '__main__':
     log_fmt = '%(asctime)s - %(name)s - %(levelname)s - %(message)s'
