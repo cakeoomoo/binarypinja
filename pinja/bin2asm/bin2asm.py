@@ -3,31 +3,35 @@
 from elftools.elf.elffile import ELFFile
 from capstone import *
 import glob
+import pefile
 from pinja.color.color import *
 
 
 def get_pe_textsection2asm(filepath):
-    debug = 1
+    debug = 0
     list_i = []
 
     with open(filepath, 'rb') as f:
+        pe = pefile.PE(f.name)
+
         if debug:
-            print_green(filepath)
+            print_blue("relative .text addr:{}, size:{}".format(hex(pe.sections[0].VirtualAddress), hex(pe.sections[0].SizeOfRawData)))
 
-        # ctrl PE binary 
-        # TODO
+        textsection_addr = pe.sections[0].VirtualAddress
+        textsection_size = pe.sections[0].SizeOfRawData
 
-        '''ELF bianary
-        elf = ELFFile(f)
-        code = elf.get_section_by_name('.text')
-        ops = code.data()
-        addr = code['sh_addr']
-        '''
+        code_section = pe.get_section_by_rva(textsection_addr)
+
+        code_dump = code_section.get_data(textsection_addr, textsection_size)
+        code_addr = pe.OPTIONAL_HEADER.ImageBase + code_section.VirtualAddress
+
+        if debug:
+            print_green(code_dump)
 
         md = Cs(CS_ARCH_X86, CS_MODE_64)
         countbyte = 0
-        for i in md.disasm(ops, addr):
-            current_inst = ops[countbyte:countbyte + i.size:]
+        for i in md.disasm(code_dump, code_addr):
+            current_inst = code_dump[countbyte:countbyte + i.size:]
             countbyte += i.size
             str_temp = i.mnemonic + ' ' + i.op_str
             list_i.append(str_temp)
