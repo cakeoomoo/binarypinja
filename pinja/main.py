@@ -52,7 +52,7 @@ def make_CSVfile_from_datalist_withPandasFmt(filename, datalist):
 @click.option('-b', '--byte', 'byte', default='256',
               help='byte: get number of byte\ndefault: 256')
 @click.argument('input_dirpath', type=click.Path())
-def main(input_dirpath, output_dirpath, fmt, mode, byte):
+def main(input_dirpath, output_dirpath, fmt, byte):
     """ Runs data processing scripts to turn assembler data from the binary into
         cleaned data ready to be analyzed.
     """
@@ -120,13 +120,10 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
     textsegment_list = []
     for file in files:
         if fmt == 'pe':
-            # TODO
-            continue
             textsegment_templist = [file]
             textsegment_templist.extend(get_pe_textsection2asm(file))
             textsegment_list.append(textsegment_templist)
-
-            if 1:
+            if 0:
                 pprint.pprint(textsegment_list)
         elif fmt == 'elf':
             textsegment_templist = [file]
