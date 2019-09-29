@@ -25,7 +25,8 @@ def get_elf_binarycode(symbollist):
     # get disassemble code of all function of .text section on elf binary files.
     for (filename, list_syminfo) in zip(filename_list,sym_addr_list):
         with open(filename, 'rb') as f:
-            print_red(filename)
+            if debug:
+                print_red(filename)
             elf = ELFFile(f)
             code = elf.get_section_by_name('.text')
             ops = code.data()

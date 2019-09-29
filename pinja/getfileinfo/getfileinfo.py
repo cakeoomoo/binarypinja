@@ -57,16 +57,16 @@ def get_elf_entrypoint(filepath):
 
 
 def get_pe_ALLsymbol_address(filepath):
+    debug = 0
     allsymbol = []
     with open(filepath, 'rb') as f:
         pe = pefile.PE(f.name)
 
         # print debug
-        if 1:
+        if debug:
             print_green("{0}".format(pe.OPTIONAL_HEADER))
             print_blue("{0}".format(pe.OPTIONAL_HEADER.AddressOfEntryPoint))
-        # print debug
-        if 1:
+
             # print section name and some address
             for section in pe.sections:
                 print_yelow("{}{}{}{}".format(section.Name, hex(section.VirtualAddress), hex(section.Misc_VirtualSize), section.SizeOfRawData ))
@@ -78,25 +78,18 @@ def get_pe_ALLsymbol_address(filepath):
                 for imp in entry.imports:
                     print_purple("{}{}".format(hex(imp.address), imp.name))
 
-
-
-        if 0:
+        if debug:
             for exp in pe.DIRECTORY_ENTRY_EXPORT:
                 print_green("{}{}{}".format(hex(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal))
-        if 0:
             for entry in pe.DIRECTORY_ENTRY_IMPORT:
                 print_yelow(entry.dll)
                 for imp in entry.imports:
                       print_blue("{}{}".format(hex(imp.address), imp.name))
             for exp in pe.DIRECTORY_ENTRY_EXPORT.symbols:
                 print_green("{}{}".format(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal)
-
-
-
-        if 0:
             print_blue("{}".format(pe.dump_info()))
 
-        if 1:
+        if debug:
             for section in pe.sections:
                 print_green("{}{}{}{}{}".format(
                     section.Name,
@@ -107,26 +100,23 @@ def get_pe_ALLsymbol_address(filepath):
                 if section.Name == '.text':
                     print_red("{}{}".format((section.PointerToRawData),hex(section.Misc_VirtualSize)))
 
-        if 0:
-            allsymbol.append([0, 0, 0])
-        else:
-            allsymbol.append([990, 990, 990])
+        allsymbol.append([0, 0, 0])
     return allsymbol
 
 
 def get_elf_ALLsymbol_address(filepath):
+    debug = 0
     allsymbol = []
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         symtab = elf.get_section_by_name('.symtab')
 
         # store the symbol information into .text section(.sym is not ) of the file
-        if 0:
+        if debug:
             print_green(".text-address({0}): {1}, ".format(f.name, elf.get_section_by_name('.text')['sh_addr']))
         if symtab is not None:
             for element in symtab.iter_symbols():
-                # print debug
-                if 0:
+                if debug:
                     print_red("ALL: {0}, ".format(dir(element.entry)))
                     print_purple_noLF("name: {0}, ".format(element.name))
                     print_blue_noLF("st_name: {0}".format(element.entry['st_name']))
@@ -135,16 +125,17 @@ def get_elf_ALLsymbol_address(filepath):
                 if element.entry['st_size'] != 0:
                     allsymbol.append([element.name, element.entry['st_value'], element.entry['st_size']])
         else:
-            print_red("{0}: No symbol-info".format(f.name))
+            print_blue("WARNING(no symbol) :  {0}".format(f.name))
             allsymbol.append([0, 0, 0])
 
         # dynsym
-        if 0:
+        dynsym = 0
+        if dynsym:
             dynsym = elf.get_section_by_name('.dynsym')
             if dynsym is not None:
                 for element in dynsym.iter_symbols():
                     # print debug
-                    if 0:
+                    if debug:
                         print_red("ALL: {0}, ".format(dir(element.entry)))
                         print_purple_noLF("name: {0}, ".format(element.name))
                         print_blue_noLF("st_name: {0}".format(element.entry['st_name']))
@@ -159,24 +150,27 @@ def get_elf_ALLsymbol_address(filepath):
     return allsymbol
 
 
-# Reference
+# Just Reference code, so this function do not use in main() of pinja 
 def get_elf_ALLsymbol_address_otherinformation(filepath):
+    debug = 0
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         for section in elf.iter_sections():
             symbol = [hex(section['sh_addr']), section.name]
-            if 0:
+            if debug:
                 print_yelow("{0}".format(symbol))
                 print_purple("{0}".format(f'{section.name}'))
                 print(dir(section))
-            if 1:
-                if isinstance(section, StringTableSection):
-                    print_red("{0}".format(f'{section.name}:'))
-                    symbol_table = elf.get_section(section['sh_link'])
 
-                if isinstance(section, SymbolTableSection):
+            if isinstance(section, StringTableSection):
+                if debug:
                     print_red("{0}".format(f'{section.name}:'))
-                    symbol_table = elf.get_section(section['sh_link'])
-            #print_red(dir(elf.get_section(section['sh_link']).name))
+                symbol_table = elf.get_section(section['sh_link'])
+            if isinstance(section, SymbolTableSection):
+                if debug:
+                    print_red("{0}".format(f'{section.name}:'))
+                symbol_table = elf.get_section(section['sh_link'])
+            if debug:
+                print_red(dir(elf.get_section(section['sh_link']).name))
         print_green(elf.get_section_by_name('.text')['sh_addr'])
         print_green(elf.get_section_by_name('.text')['sh_name'])

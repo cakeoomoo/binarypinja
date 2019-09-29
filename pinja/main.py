@@ -24,9 +24,10 @@ def getallfiles(input_dirpath):
 
 def checkfiletype(filepath):
     # check filetype
+    debug = 0
     f = magic.Magic(mime=True, uncompress=True)
     if (f.from_file(filepath) != 'application/x-dosexec') and (f.from_file(filepath) != 'application/x-executable') and (f.from_file(filepath) != 'application/x-sharedlib'):
-        if 0:
+        if debug:
             print_red("{0} is not exec-file".format(filepath))
         return False
     return True
@@ -39,9 +40,7 @@ def get_outputnameOfCSV_fromDirectory(directorypath):
 def make_CSVfile_from_datalist_withPandasFmt(filename, datalist):
     df = pd.DataFrame(datalist)
     df.to_csv(filename)
-    print_green('----------------------------------------------')
-    print_green('OUTPUT: {}!'.format(filename))
-    print_green('----------------------------------------------')
+    print_green('OUTPUT >>>>>>>>  {} '.format(filename))
 
 
 @click.command()
@@ -81,7 +80,6 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
     files = getallfiles(input_dirpath)
     files = list(filter(checkfiletype, files))
     files = list(filter(os.path.isfile, files))
-    print_yelow('-------------------------------------------------------------')
 
     # get outputfilename without file-extension
     outputfilename = get_outputnameOfCSV_fromDirectory(output_dirpath)
@@ -95,38 +93,58 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
             entry_pointlist.append([file, get_elf_entrypoint(file)])
         else:
             print('Error! argv!!!')
-    print_green(entry_pointlist)
+    if debug:
+        print_green(entry_pointlist)
     # make the dataset(CSV) from entrypoint
     tempfilename =  outputfilename + "_EP.csv"
     make_CSVfile_from_datalist_withPandasFmt(tempfilename, entry_pointlist)
-    print_yelow('-------------------------------------------------------------')
+
+
+
+    # Extract disassembly code from entry-point of all files at arbitrary bytes
+    # TODO
 
 
 
 
     # Extract disassembly code from text-section of all files
-    # TODO
-
-
-
+    textsegment_list = []
+    for file in files:
+        if fmt == 'pe':
+            textsegment_templist = [file]
+            textsegment_templist.extend(get_pe_textsection2asm(file))
+            textsegment_list.append(textsegment_templist)
+            if 1:
+                pprint.pprint(textsegment_list)
+        elif fmt == 'elf':
+            textsegment_templist = [file]
+            textsegment_templist.extend(get_elf_textsection2asm(file, 'int'))
+            textsegment_list.append(textsegment_templist)
+            if debug:
+                pprint.pprint(textsegment_list)
+        else:
+            print('Error! argv!!!')
+    # make the dataset(CSV) from assemble code, binarycode and etc...
+    tempfilename =  outputfilename + "_TEXTSec_asm.csv"
+    make_CSVfile_from_datalist_withPandasFmt(tempfilename, textsegment_list)
 
     # get all symbol
     symbol_list = []
     for file in files:
         if fmt == 'pe':
             symbol_list.append([file, get_pe_ALLsymbol_address(file)])
+            if debug:
+                print_green(symbol_list)
         elif fmt == 'elf':
             symbol_list.append([file, get_elf_ALLsymbol_address(file)])
             if debug:
                 print_green(symbol_list)
         else:
             print('Error! argv!!!')
-    print_yelow('-------------------------------------------------------------')
 
     # Extract disassembly code from all-function of all files
     if fmt == 'pe':
-        # TODO
-        pass
+        pass  # TODO
     elif fmt == 'elf':
         asmcodelist = []
         asmcodelist = get_elf_binarycode(symbol_list)
@@ -135,6 +153,8 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
         # make the dataset(CSV) from assemble code, binarycode and etc...
         tempfilename =  outputfilename + "_FUNC_asm.csv"
         make_CSVfile_from_datalist_withPandasFmt(tempfilename, asmcodelist)
+
+    print_red('FINISH!')
 
 
 if __name__ == '__main__':
