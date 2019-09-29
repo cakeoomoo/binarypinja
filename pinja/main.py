@@ -43,6 +43,18 @@ def make_CSVfile_from_datalist_withPandasFmt(filename, datalist):
     print_green('OUTPUT >>>>>>>>  {} '.format(filename))
 
 
+def check32or64_elf(filepath):
+    with open(filepath, 'rb') as f:
+        elf = ELFFile(f)
+        checkbit = elf.header.e_ident.EI_CLASS
+    if 1:
+        print_red("{}: bit is {}".format(filepath, checkbit))
+    if checkbit == 'ELFCLASS32':
+        return 32
+    elif checkbit == 'ELFCLASS64':
+        return 64
+
+
 @click.command()
 #@click.option('-m', '--mode', 'mode', default='bin', help='other: \ndefault: bin')
 @click.option('-f', '--fmt', 'fmt', default='pe',
@@ -65,6 +77,10 @@ def main(input_dirpath, output_dirpath, fmt, byte):
     files = getallfiles(input_dirpath)
     files = list(filter(checkfiletype, files))
     files = list(filter(os.path.isfile, files))
+
+    for file in files:
+        check32or64_elf(file)
+
 
     # get outputfilename without file-extension
     outputfilename = get_outputnameOfCSV_fromDirectory(output_dirpath)
