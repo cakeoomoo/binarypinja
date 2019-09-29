@@ -76,7 +76,10 @@ def get_elf_textsection2asm(filepath, mode):
     return list_i
 
 
-'''Extruct the assembley-language from .text section of arbitry binary files
+'''----------------------------------------------------------------------------
+   just reference as below
+   ----------------------------------------------------------------------------
+   Extruct the assembley-language from .text section of arbitry binary files
    mode:
         "int" : opecode + operand,
         "ope" : opecode, operand
@@ -96,17 +99,11 @@ def get256byte2asm(filepath, mode):
         starttAddr_textSection = code['sh_addr']
 
         entrypointAdress = 0x3870
-
         startAddr = entrypointAdress - starttAddr_textSection
-
         endAddr = startAddr + getByteNum
         ops = ops[startAddr:endAddr]
 
-        # entry point of touch(binary)
-        addr_offset = starttAddr_textSection + 1000
-
         md = Cs(CS_ARCH_X86, CS_MODE_64)
-
         countbyte = 0
         if mode == "ope":
             for i in md.disasm(ops, startAddr):
@@ -136,21 +133,3 @@ def get256byte2asm(filepath, mode):
             print_red("Error mode is wrong!! in byte2asm()...")
 
     return [x for x in list_i if (x != '{') and (x != '}') and (x != '')]
-
-
-def elf2asm(input_dir):
-    mode = 'int'
-    files = glob.glob(input_dir)
-    print_green(files)
-    for file in files:
-        result001 = byte2asm(file, mode)
-
-    print_blue("----------------------------")
-
-    for file in files:
-        result002 = get256byte2asm(file, mode)
-    print_yelow(result002)
-
-
-if __name__ == '__main__':
-    elf2asm('infileELF/*')

@@ -25,11 +25,6 @@ The advantage is more simpler usage, and to use on free and open-source without 
     - `[dirpathname]_FUNC_asm_repl.csv` :  Transform disassembly code from csvfile by arbitrary rules
 
 
-
-- Output(command-option is --mode doc2vec)
-    - Print on console :  the similarity comparison value at disassembly codes by using doc2vec
-
-
 ### HOW TO INSTALL:
 
 ```
@@ -55,6 +50,7 @@ pinja [INPUT_DIRPATH]
 ```
 pinja --help
 pinja data/testfile_pe
+pinja data/testfile_pe -b 180
 pinja -f elf data/testfile_pe -o DATASET001 
 pinja -f elf data/testfile_elf
 pinja -f elf data/testfile_elf -o DATASET002 
@@ -131,7 +127,7 @@ Project Organization(Pending.....)
 
 --------
 
-# todo reading links
+#### todo reading links
 
 [https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92](https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92)
 
