@@ -44,10 +44,11 @@ def make_CSVfile_from_datalist_withPandasFmt(filename, datalist):
 
 
 def check32or64_elf(filepath):
+    debug = 0
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         checkbit = elf.header.e_ident.EI_CLASS
-    if 1:
+    if debug:
         print_red("{}: bit is {}".format(filepath, checkbit))
     if checkbit == 'ELFCLASS32':
         return 32
