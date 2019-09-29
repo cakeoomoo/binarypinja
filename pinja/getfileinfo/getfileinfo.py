@@ -57,48 +57,49 @@ def get_elf_entrypoint(filepath):
 
 
 def get_pe_ALLsymbol_address(filepath):
-    debug = 0
+    debug1 = 0
+    debug2 = 0
+    debug3 = 0
     allsymbol = []
     with open(filepath, 'rb') as f:
         pe = pefile.PE(f.name)
 
-        # print debug
-        if debug:
+        if debug1:
             print_green("{0}".format(pe.OPTIONAL_HEADER))
             print_blue("{0}".format(pe.OPTIONAL_HEADER.AddressOfEntryPoint))
 
             # print section name and some address
             for section in pe.sections:
-                print_yelow("{}{}{}{}".format(section.Name, hex(section.VirtualAddress), hex(section.Misc_VirtualSize), section.SizeOfRawData ))
+                print_yelow("{}, {}, {}, {}".format(section.Name, hex(section.VirtualAddress), hex(section.Misc_VirtualSize), hex(section.SizeOfRawData) ))
 
             # If the PE file was loaded using the fast_load=True argument, we will need to parse the data directories:
             #pe.parse_data_directories()
             for entry in pe.DIRECTORY_ENTRY_IMPORT:
                 print_blue("{}".format(entry.dll))
                 for imp in entry.imports:
-                    print_purple("{}{}".format(hex(imp.address), imp.name))
+                    print_purple("{}, {}".format(hex(imp.address), imp.name))
 
-        if debug:
+        if debug2:
             for exp in pe.DIRECTORY_ENTRY_EXPORT:
-                print_green("{}{}{}".format(hex(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal))
+                print_green("{}, {}, {}".format(hex(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal))
             for entry in pe.DIRECTORY_ENTRY_IMPORT:
                 print_yelow(entry.dll)
                 for imp in entry.imports:
-                      print_blue("{}{}".format(hex(imp.address), imp.name))
+                      print_blue("{}, {}".format(hex(imp.address), imp.name))
             for exp in pe.DIRECTORY_ENTRY_EXPORT.symbols:
-                print_green("{}{}".format(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal)
+                print_green("{}, {}".format(pe.OPTIONAL_HEADER.ImageBase + exp.address), exp.name, exp.ordinal)
             print_blue("{}".format(pe.dump_info()))
 
-        if debug:
+        if debug3:
             for section in pe.sections:
-                print_green("{}{}{}{}{}".format(
+                print_green("{}, {}, {}, {}, {}".format(
                     section.Name,
                     hex(section.VirtualAddress),
                     hex(section.Misc_VirtualSize),
                     section.SizeOfRawData,
                     section.get_entropy()))
                 if section.Name == '.text':
-                    print_red("{}{}".format((section.PointerToRawData),hex(section.Misc_VirtualSize)))
+                    print_red("{}, {}".format((section.PointerToRawData),hex(section.Misc_VirtualSize)))
 
         allsymbol.append([0, 0, 0])
     return allsymbol

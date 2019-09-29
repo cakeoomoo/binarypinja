@@ -62,9 +62,9 @@ def get_elf_binarycode(filepath, byte):
 
 
 def get_pe_function_binarycode(symbollist):
-    print_red('pending: get_pe_fuction_binarycode()')
-    return 0
-
+    # pending: Because it cannot get symbol information from pe binary files.
+    inst_allFunc = []
+    return inst_allFunc
 
 def get_elf_function_binarycode(symbollist):
     # initialize variable and list
