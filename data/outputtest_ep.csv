@@ -1,0 +1,5 @@
+,0,1
+0,testfile_elf/test_int,4195488
+1,testfile_elf/test_double,4195488
+2,testfile_elf/touch,14448
+3,testfile_elf/ptrace,4196064

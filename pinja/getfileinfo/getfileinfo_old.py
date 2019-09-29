@@ -72,11 +72,12 @@ def get_pe_ALLsymbol_address(filepath):
                 print_yelow("{}{}{}{}".format(section.Name, hex(section.VirtualAddress), hex(section.Misc_VirtualSize), section.SizeOfRawData ))
 
             # If the PE file was loaded using the fast_load=True argument, we will need to parse the data directories:
-            #pe.parse_data_directories()
+            pe.parse_data_directories()
             for entry in pe.DIRECTORY_ENTRY_IMPORT:
                 print_blue("{}".format(entry.dll))
-                for imp in entry.imports:
-                    print_purple("{}{}".format(hex(imp.address), imp.name))
+
+            for imp in entry.imports:
+                print_purple("{}{}".format(hex(imp.address), imp.name))
 
 
 
@@ -93,7 +94,7 @@ def get_pe_ALLsymbol_address(filepath):
 
 
 
-        if 0:
+        if 1:
             print_blue("{}".format(pe.dump_info()))
 
         if 1:
