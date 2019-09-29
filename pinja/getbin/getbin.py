@@ -13,11 +13,16 @@ def get_pe_binarycode(file):
     # TODO
 
 def get_elf_binarycode(symbollist):
+    # initialize variable and list
     inst_allFunc = []
     inst_allFile = []
     debug = 0
     shreshold_size = 4
+
+    # split two lists from symbollist
     filename_list, sym_addr_list = map(list, zip(*symbollist))
+
+    # get disassemble code of all function of .text section on elf binary files.
     for (filename, list_syminfo) in zip(filename_list,sym_addr_list):
         with open(filename, 'rb') as f:
             print_red(filename)
@@ -28,7 +33,7 @@ def get_elf_binarycode(symbollist):
             l_temp = []
             for name, addr, size in list_syminfo:
                 l_file_func_inst = []
-                # non symbol
+                # skip no symbol
                 if name is 0:
                     continue
                 # skip short size of the code

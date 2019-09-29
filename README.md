@@ -8,22 +8,23 @@ BINARY PINJA
 [![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
 
 This tool has the ability to create datasets for several ML(machine learning) programs in a NLP(natural language processing).
-The main feature is converted to binary-code and disassembly-code from executable files, and make these CSV-files for the ML.
+The main feature is converted to binary-code and disassembly-code from executable files of intel-CPU, and make these CSV-files for easy handling in ML.
 The advantage is more simpler usage, and to use on free and open-source without Paid tools like IDA-Python.
 
 
 ## FEATURES:
 
 - Input
-    - `PEformat(.exe) files`
-    - `ELFformat execfiles`
+    - directoryPath: `PEformat(.exe) files` or  `ELFformat exefiles`
 
 - Output
-    - `[dirname].csv`             :  Extract entry-point for all files
-    - `[dirname].bin.csv`         :  Extract binary-code for all files
-    - `[dirname].txtbin.csv`      :  Extract text section for all files
-    - `[dirname].bin.asm.csv`     :  Convert to each disassembly files from all files
-    - `[dirname].bin.asm.repl.csv`:  Transform disassembly code using arbitrary rules for easy handling in ML
+    - `[dirpathname]_EP.csv`            :  Extract entry-point for all files
+    - `[dirpathname]_EP_asm.csv`        :  Extract disassembly code from entry-point of all files at arbitrary bytes
+    - `[dirpathname]_TEXTSec_asm.csv`   :  Extract disassembly code from text-section of all files
+    - `[dirpathname]_FUNC_asm.csv`      :  Extract disassembly code from all-function of all files
+    - `[dirpathname]_FUNC_asm_repl.csv` :  Transform disassembly code from csvfile by arbitrary rules 
+
+
 
 - Output(command-option is --mode doc2vec)
     - Print on console :  the similarity comparison value at disassembly codes by using doc2vec
@@ -52,9 +53,9 @@ pinja [INPUT_DIRPATH]
 ### Example Command:
 
 ```
+pinja -f pe data/infilePE
+pinja -f elf data/infileELF
 pinja -m AEP256 test
-pinja data/infilePE -f pe
-pinja data/infileELF -f elf
 ```
 
 ### DEMO:
