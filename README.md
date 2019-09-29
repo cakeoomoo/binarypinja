@@ -21,8 +21,8 @@ The advantage is more simpler usage, and to use on free and open-source without 
     - `[dirpathname]_EP.csv`            :  Extract entry-point for all files
     - `[dirpathname]_EP_asm.csv`        :  Extract disassembly code from entry-point of all files at arbitrary bytes
     - `[dirpathname]_TEXTSec_asm.csv`   :  Extract disassembly code from text-section of all files
-    - `[dirpathname]_FUNC_asm.csv`      :  Extract disassembly code from all-function of all files
-    - `[dirpathname]_FUNC_asm_repl.csv` :  Transform disassembly code from csvfile by arbitrary rules 
+    - `[dirpathname]_FUNC_asm.csv`      :  Extract disassembly code from all-function of all files(ELFbinary)
+    - `[dirpathname]_FUNC_asm_repl.csv` :  Transform disassembly code from csvfile by arbitrary rules
 
 
 
@@ -53,9 +53,11 @@ pinja [INPUT_DIRPATH]
 ### Example Command:
 
 ```
-pinja -f pe data/infilePE
-pinja -f elf data/infileELF
-pinja -m AEP256 test
+pinja --help
+pinja data/testfile_pe
+pinja -f elf data/testfile_pe -o DATASET001 
+pinja -f elf data/testfile_elf
+pinja -f elf data/testfile_elf -o DATASET002 
 ```
 
 ### DEMO:
@@ -67,7 +69,7 @@ pendding...
 
 
 
-Project Organization
+Project Organization(Pending.....)
 ------------
     
     binarypinja

@@ -213,7 +213,7 @@ argumetns:
         True: run
         False: not run
     splitmode
-        arguments of byte2asm() function's mode --> 'int' or 'ope'
+        arguments of get_elf_textsection2asm() function's mode --> 'int' or 'ope'
 '''
 def ctrl_file_lines(
         path_asm,
@@ -227,7 +227,7 @@ def ctrl_file_lines(
 
     filelist = get_c_filelist(path_asm)
     for x in filelist:
-        eachlines.append(bin2asm.byte2asm(path_asm + '/' + x, split_mode))
+        eachlines.append(bin2asm.get_elf_textsection2asm(path_asm + '/' + x, split_mode))
 
     # make list of doc2vec
     num = 0

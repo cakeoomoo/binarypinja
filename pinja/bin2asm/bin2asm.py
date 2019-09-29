@@ -6,11 +6,38 @@ import glob
 from pinja.color.color import *
 
 
-def byte2asm(filepath, mode):
+def get_pe_textsection2asm(filepath):
+    debug = 1
+    list_i = []
+
+    with open(filepath, 'rb') as f:
+        if debug:
+            print_green(filepath)
+
+        # ctrl PE binary 
+        # TODO
+
+        '''ELF bianary
+        elf = ELFFile(f)
+        code = elf.get_section_by_name('.text')
+        ops = code.data()
+        addr = code['sh_addr']
+        '''
+
+        md = Cs(CS_ARCH_X86, CS_MODE_64)
+        countbyte = 0
+        for i in md.disasm(ops, addr):
+            current_inst = ops[countbyte:countbyte + i.size:]
+            countbyte += i.size
+            str_temp = i.mnemonic + ' ' + i.op_str
+            list_i.append(str_temp)
+    return list_i
+
+
+def get_elf_textsection2asm(filepath, mode):
     debug = 0
     list_i = []
     with open(filepath, 'rb') as f:
-        print_green(filepath)
         elf = ELFFile(f)
         code = elf.get_section_by_name('.text')
         ops = code.data()
@@ -37,6 +64,7 @@ def byte2asm(filepath, mode):
                 else:
                     # non split
                     list_i.append(i.op_str)
+            return [x for x in list_i if (x != '{') and (x != '}') and (x != '')]
         elif mode == "int":
             for i in md.disasm(ops, addr):
                 current_inst = ops[countbyte:countbyte + i.size:]
@@ -44,9 +72,8 @@ def byte2asm(filepath, mode):
                 str_temp = i.mnemonic + ' ' + i.op_str
                 list_i.append(str_temp)
         else:
-            print_red("Error mode is wrong!! in byte2asm()...")
-
-    return [x for x in list_i if (x != '{') and (x != '}') and (x != '')]
+            print_red("Error: mode is wrong!!")
+    return list_i
 
 
 '''Extruct the assembley-language from .text section of arbitry binary files
