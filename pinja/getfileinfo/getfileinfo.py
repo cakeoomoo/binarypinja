@@ -46,7 +46,7 @@ def get_pe_raw_entrypoint(filepath):
 
 
 def get_elf_entrypoint(filepath):
-    debug = 1
+    debug = 0
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         # print debug

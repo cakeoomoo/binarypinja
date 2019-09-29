@@ -1,6 +1,0 @@
-,0,1
-0,infileELF/test_int,4195488
-1,infileELF/test_double,4195488
-2,infileELF/touch,14448
-3,infileELF/test_int_32bit,1088
-4,infileELF/ptrace,4196064

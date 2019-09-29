@@ -36,6 +36,7 @@ def get_elf_binarycode(filepath, byte):
     debug = 0
     ByteEp_list = []
 
+
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         code = elf.get_section_by_name('.text')
@@ -48,7 +49,17 @@ def get_elf_binarycode(filepath, byte):
         startAddr = eop - starttAddr_textSection
         endAddr = startAddr + int(byte)
         ops = ops[startAddr:endAddr]
-        md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+        # check bit
+        checkbit = elf.header.e_ident.EI_CLASS
+        if checkbit == 'ELFCLASS32':
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+        elif checkbit == 'ELFCLASS64':
+            md = Cs(CS_ARCH_X86, CS_MODE_64)
+        else:
+            print_red('ERROR: bit is wrong!')
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+
 
         countbyte = 0
         for i in md.disasm(ops, startAddr):
@@ -101,7 +112,17 @@ def get_elf_function_binarycode(symbollist):
                     print("name:{},  addr:{},  size:{}".format(name, addr, size))
                     print("start: {}, end:{}".format(hex(staAddr), hex(endAddr)))
                 list_i = []
-                md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+                # check bit
+                checkbit = elf.header.e_ident.EI_CLASS
+                if checkbit == 'ELFCLASS32':
+                    md = Cs(CS_ARCH_X86, CS_MODE_32)
+                elif checkbit == 'ELFCLASS64':
+                    md = Cs(CS_ARCH_X86, CS_MODE_64)
+                else:
+                    print_red('ERROR: bit is wrong!')
+                    md = Cs(CS_ARCH_X86, CS_MODE_32)
+
                 countb = 0
                 for i in md.disasm(ops_temp, starttAddr_textSection):
                     current_inst = ops_temp[countb:countb + i.size:]

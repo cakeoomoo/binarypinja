@@ -46,7 +46,16 @@ def get_elf_textsection2asm(filepath, mode):
         code = elf.get_section_by_name('.text')
         ops = code.data()
         addr = code['sh_addr']
-        md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+        # check bit
+        checkbit = elf.header.e_ident.EI_CLASS
+        if checkbit == 'ELFCLASS32':
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+        elif checkbit == 'ELFCLASS64':
+            md = Cs(CS_ARCH_X86, CS_MODE_64)
+        else:
+            print_red('ERROR: bit is wrong!')
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
 
         countbyte = 0
 
@@ -107,7 +116,16 @@ def get256byte2asm(filepath, mode):
         endAddr = startAddr + getByteNum
         ops = ops[startAddr:endAddr]
 
-        md = Cs(CS_ARCH_X86, CS_MODE_64)
+        # check bit
+        checkbit = elf.header.e_ident.EI_CLASS
+        if checkbit == 'ELFCLASS32':
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+        elif checkbit == 'ELFCLASS64':
+            md = Cs(CS_ARCH_X86, CS_MODE_64)
+        else:
+            print_red('ERROR: bit is wrong!')
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+
         countbyte = 0
         if mode == "ope":
             for i in md.disasm(ops, startAddr):
