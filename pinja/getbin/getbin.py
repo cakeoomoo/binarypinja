@@ -20,20 +20,53 @@ def get_pe_binarycode(filepath, byte):
         code_dump = code_section.get_data(eop, int(byte))
         code_addr = pe.OPTIONAL_HEADER.ImageBase + code_section.VirtualAddress
         md = Cs(CS_ARCH_X86, CS_MODE_64)
-        print_green(f.name)
-        print_yelow('-------------------------------------------------------------')
 
+        countbyte = 0
         for i in md.disasm(code_dump, code_addr):
             if debug:
                 print("{}:\t{}\t{}" .format(hex(i.address), i.mnemonic, i.op_str))
-            ByteEp_list.append()
+            current_inst = code_dump[countbyte:countbyte + i.size:]
+            countbyte += i.size
+            str_temp = i.mnemonic + ' ' + i.op_str
+            ByteEp_list.append(str_temp)
     return ByteEp_list
 
 
+def get_elf_binarycode(filepath, byte):
+    debug = 0
+    ByteEp_list = []
+
+    with open(filepath, 'rb') as f:
+        elf = ELFFile(f)
+        code = elf.get_section_by_name('.text')
+        ops = code.data()
+
+        # get the start address of the text-section
+        starttAddr_textSection = code['sh_addr']
+        eop = elf.header.e_entry
+
+        startAddr = eop - starttAddr_textSection
+        endAddr = startAddr + int(byte)
+        ops = ops[startAddr:endAddr]
+        md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+        countbyte = 0
+        for i in md.disasm(ops, startAddr):
+            if debug:
+                print("{}:\t{}\t{}" .format(hex(i.address), i.mnemonic, i.op_str))
+            current_inst = ops[countbyte:countbyte + i.size:]
+            countbyte += i.size
+            str_temp = i.mnemonic + ' ' + i.op_str
+            ByteEp_list.append(str_temp)
+    return ByteEp_list
 
 
+def get_pe_function_binarycode(symbollist):
+    print_red('pending: get_pe_fuction_binarycode()')
+    return 0
 
-def get_elf_fuction_binarycode(symbollist):
+
+def get_elf_function_binarycode(symbollist):
     # initialize variable and list
     inst_allFunc = []
     inst_allFile = []

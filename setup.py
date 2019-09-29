@@ -9,7 +9,7 @@ setup(
             'pinja = pinja.main:main'  
     },  
     description='A short description of the project.',
-    author='pinja_sec',
+    author='*pinja_sec',
     license='BSD-3',
 )
 

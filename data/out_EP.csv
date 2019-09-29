@@ -1,4 +1,5 @@
 ,0,1
-0,infilePE/GuessWhat.exe,2658
-1,infilePE/Overlong.exe,1472
-2,infilePE/12-donn_beach.exe,4989
+0,infileELF/test_int,4195488
+1,infileELF/test_double,4195488
+2,infileELF/touch,14448
+3,infileELF/ptrace,4196064
