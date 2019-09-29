@@ -67,9 +67,6 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
 
     ''' special routine into reference folder
     '''
-    if mode == 'AEP256':
-        get_AEP256(input_dirpath, output_dirpath)
-        return
     if mode == 'doc2vec':
         get_elf_info('data/infileELF_1file/touch')
         return
@@ -85,25 +82,34 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
     outputfilename = get_outputnameOfCSV_fromDirectory(output_dirpath)
 
     # Extract entry-point for all files
-    entry_pointlist = []
+    entrypoint_list = []
     for file in files:
         if fmt == 'pe':
-            entry_pointlist.append([file, get_pe_raw_entrypoint(file)])
+            entrypoint_list.append([file, get_pe_raw_entrypoint(file)])
         elif fmt == 'elf':
-            entry_pointlist.append([file, get_elf_entrypoint(file)])
+            entrypoint_list.append([file, get_elf_entrypoint(file)])
         else:
             print('Error! argv!!!')
     if debug:
-        print_green(entry_pointlist)
+        print_green(entrypoint_list)
     # make the dataset(CSV) from entrypoint
     tempfilename =  outputfilename + "_EP.csv"
-    make_CSVfile_from_datalist_withPandasFmt(tempfilename, entry_pointlist)
+    make_CSVfile_from_datalist_withPandasFmt(tempfilename, entrypoint_list)
 
 
 
     # Extract disassembly code from entry-point of all files at arbitrary bytes
-    # TODO
-
+    anyBytefromEp_list = []
+    for file in files:
+        if fmt == 'pe':
+            get_pe_binarycode(file, byte)
+        elif fmt == 'elf':
+            pass
+            # TODO
+        else:
+            print('Error! argv!!!')
+    if 1:
+        print_green(anyBytefromEp_list)
 
 
 
@@ -111,9 +117,12 @@ def main(input_dirpath, output_dirpath, fmt, mode, byte):
     textsegment_list = []
     for file in files:
         if fmt == 'pe':
+            # TODO
+            continue
             textsegment_templist = [file]
             textsegment_templist.extend(get_pe_textsection2asm(file))
             textsegment_list.append(textsegment_templist)
+
             if 1:
                 pprint.pprint(textsegment_list)
         elif fmt == 'elf':

@@ -4,15 +4,36 @@ from elftools.elf.elffile import ELFFile
 from elftools.elf.sections import *
 from capstone import *
 from pinja.color.color import *
+import pefile
 import pprint
 import numpy as np
 import pandas as pd
 
-def get_pe_binarycode(file):
-    pass
-    # TODO
+def get_pe_binarycode(filepath, byte):
+    debug = 0
+    ByteEp_list = []
 
-def get_elf_binarycode(symbollist):
+    with open(filepath, 'rb') as f:
+        pe = pefile.PE(f.name)
+        eop = pe.OPTIONAL_HEADER.AddressOfEntryPoint
+        code_section = pe.get_section_by_rva(eop)
+        code_dump = code_section.get_data(eop, int(byte))
+        code_addr = pe.OPTIONAL_HEADER.ImageBase + code_section.VirtualAddress
+        md = Cs(CS_ARCH_X86, CS_MODE_64)
+        print_green(f.name)
+        print_yelow('-------------------------------------------------------------')
+
+        for i in md.disasm(code_dump, code_addr):
+            if debug:
+                print("{}:\t{}\t{}" .format(hex(i.address), i.mnemonic, i.op_str))
+            ByteEp_list.append()
+    return ByteEp_list
+
+
+
+
+
+def get_elf_fuction_binarycode(symbollist):
     # initialize variable and list
     inst_allFunc = []
     inst_allFile = []
