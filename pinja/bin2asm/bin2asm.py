@@ -27,8 +27,16 @@ def get_pe_textsection2asm(filepath):
 
         if debug:
             print_green(code_dump)
+        checkbit = pe.OPTIONAL_HEADER.Magic
+        if checkbit == 0x10b:
+            # 32bit binary 
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
+        elif checkbit == 0x20b:
+            # 64bit binary 
+            md = Cs(CS_ARCH_X86, CS_MODE_64)
+        else:
+            md = Cs(CS_ARCH_X86, CS_MODE_32)
 
-        md = Cs(CS_ARCH_X86, CS_MODE_64)
         countbyte = 0
         for i in md.disasm(code_dump, code_addr):
             current_inst = code_dump[countbyte:countbyte + i.size:]
@@ -48,14 +56,23 @@ def get_elf_textsection2asm(filepath, mode):
         addr = code['sh_addr']
 
         # check bit
+        checkarm = elf.header.e_machine
         checkbit = elf.header.e_ident.EI_CLASS
-        if checkbit == 'ELFCLASS32':
-            md = Cs(CS_ARCH_X86, CS_MODE_32)
-        elif checkbit == 'ELFCLASS64':
-            md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+        if checkarm == 'EM_ARM':
+            md = Cs(CS_ARCH_ARM, CS_MODE_ARM)
+            print_red("WARNING: ARM binary is not supported now")
+        elif checkarm == 'EM_X86_64' or checkarm == 'EM_386':
+            if checkbit == 'ELFCLASS32':
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
+            elif checkbit == 'ELFCLASS64':
+                md = Cs(CS_ARCH_X86, CS_MODE_64)
+            else:
+                print_red('ERROR: bit is wrong!')
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
         else:
-            print_red('ERROR: bit is wrong!')
-            md = Cs(CS_ARCH_X86, CS_MODE_32)
+                print_red('ERROR: bit is wrong!')
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
 
         countbyte = 0
 
@@ -117,14 +134,24 @@ def get256byte2asm(filepath, mode):
         ops = ops[startAddr:endAddr]
 
         # check bit
+        checkarm = elf.header.e_machine
         checkbit = elf.header.e_ident.EI_CLASS
-        if checkbit == 'ELFCLASS32':
-            md = Cs(CS_ARCH_X86, CS_MODE_32)
-        elif checkbit == 'ELFCLASS64':
-            md = Cs(CS_ARCH_X86, CS_MODE_64)
+
+        if checkarm == 'EM_ARM':
+            md = Cs(CS_ARCH_ARM, CS_MODE_ARM)
+            print_red("WARNING: ARM binary is not supported now")
+        elif checkarm == 'EM_X86_64' or checkarm == 'EM_386':
+            if checkbit == 'ELFCLASS32':
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
+            elif checkbit == 'ELFCLASS64':
+                md = Cs(CS_ARCH_X86, CS_MODE_64)
+            else:
+                print_red('ERROR: bit is wrong!')
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
         else:
-            print_red('ERROR: bit is wrong!')
-            md = Cs(CS_ARCH_X86, CS_MODE_32)
+                print_red('ERROR: bit is wrong!')
+                md = Cs(CS_ARCH_X86, CS_MODE_32)
+
 
         countbyte = 0
         if mode == "ope":

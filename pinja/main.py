@@ -8,6 +8,7 @@ import os
 import glob
 import magic
 import pprint
+import pefile
 
 # local import
 from pinja.reference.AEP256_01 import *
@@ -48,12 +49,36 @@ def check32or64_elf(filepath):
     with open(filepath, 'rb') as f:
         elf = ELFFile(f)
         checkbit = elf.header.e_ident.EI_CLASS
+        checkarm = elf.header.e_machine
     if debug:
-        print_red("{}: bit is {}".format(filepath, checkbit))
-    if checkbit == 'ELFCLASS32':
+        print_yelow("{}: bit:{}, arch:{}".format(filepath, checkbit,elf.header.e_machine))
+
+    if checkarm == 'EM_ARM':
+        return checkarm
+    elif checkarm == 'EM_X86_64' or checkarm == 'EM_386':
+        if checkbit == 'ELFCLASS32':
+            return checkbit
+        elif checkbit == 'ELFCLASS64':
+            return checkbit
+        else:
+            return 0
+    else:
+        return 0
+
+
+def check32or64_pe(filepath):
+    debug = 1
+    with open(filepath, 'rb') as f:
+        pe = pefile.PE(f.name)
+        checkbit = pe.OPTIONAL_HEADER.Magic
+    if debug:
+        print_red("{}:  bit: {}".format(filepath, hex(checkbit)))
+    if checkbit == 0x10b:
         return 32
-    elif checkbit == 'ELFCLASS64':
+    elif checkbit == 0x20b:
         return 64
+    else:
+        return 0
 
 
 @click.command()
@@ -80,7 +105,13 @@ def main(input_dirpath, output_dirpath, fmt, byte):
     files = list(filter(os.path.isfile, files))
 
     for file in files:
-        check32or64_elf(file)
+        if fmt == 'pe':
+            check32or64_pe(file)
+        elif fmt == 'elf':
+            check32or64_elf(file)
+        else:
+            print('Error: argv')
+            return 0
 
 
     # get outputfilename without file-extension
@@ -140,7 +171,7 @@ def main(input_dirpath, output_dirpath, fmt, byte):
             textsegment_templist = [file]
             textsegment_templist.extend(get_pe_textsection2asm(file))
             textsegment_list.append(textsegment_templist)
-            if 0:
+            if debug:
                 pprint.pprint(textsegment_list)
         elif fmt == 'elf':
             textsegment_templist = [file]
