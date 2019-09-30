@@ -16,7 +16,7 @@ from pinja.reference.use_doc2vec import *
 from pinja.color.color import *
 from pinja.getfileinfo.getfileinfo import *
 from pinja.getbin.getbin import *
-
+from pinja.csvImprovement.csv_improvement import *
 
 def getallfiles(input_dirpath):
     files = glob.glob(input_dirpath + '/*')
@@ -67,7 +67,7 @@ def check32or64_elf(filepath):
 
 
 def check32or64_pe(filepath):
-    debug = 1
+    debug = 0
     with open(filepath, 'rb') as f:
         pe = pefile.PE(f.name)
         checkbit = pe.OPTIONAL_HEADER.Magic
@@ -186,6 +186,14 @@ def main(input_dirpath, output_dirpath, fmt, byte):
     make_CSVfile_from_datalist_withPandasFmt(tempfilename, textsegment_list)
 
     ''' ------------------------------------------------------------------------
+        Transform disassembly code from csvfile by arbitrary rules
+        [dirpathname]_TEXTSec_TRANS.csv
+        ------------------------------------------------------------------------
+    '''
+    csvfileRepClass = CsvImprivement()
+    csvfileRepClass.create_improvement_csv(tempfilename)
+
+    ''' ------------------------------------------------------------------------
         Extract disassembly code from all-function of all files
         [dirpathname]_FUNC_asm.csv
         ------------------------------------------------------------------------
@@ -217,12 +225,14 @@ def main(input_dirpath, output_dirpath, fmt, byte):
 
     ''' ------------------------------------------------------------------------
         Transform disassembly code from csvfile by arbitrary rules
-        [dirpathname]_FUNC_asm_repl.csv
+        [dirpathname]_FUNC_asm_TRANS.csv
         ------------------------------------------------------------------------
     '''
-    # TODO
+    if fmt == 'elf':
+        csvfileRepClass = CsvImprivement()
+        csvfileRepClass.create_improvement_csv(tempfilename)
 
-    print_green('----------------pinja FINISH!----------------')
+    print_green('----------------pinja FINISH!---------------')
 
 
 if __name__ == '__main__':

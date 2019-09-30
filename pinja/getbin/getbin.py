@@ -3,6 +3,7 @@
 from elftools.elf.elffile import ELFFile
 from elftools.elf.sections import *
 from capstone import *
+from capstone.arm import *
 from pinja.color.color import *
 import pefile
 import pprint
@@ -63,6 +64,7 @@ def get_elf_binarycode(filepath, byte):
         checkbit = elf.header.e_ident.EI_CLASS
 
         if checkarm == 'EM_ARM':
+            ops = ops[startAddr-1:endAddr-1]
             md = Cs(CS_ARCH_ARM, CS_MODE_ARM)
             print_red("WARNING: ARM binary is not supported now")
         elif checkarm == 'EM_X86_64' or checkarm == 'EM_386':
@@ -85,6 +87,7 @@ def get_elf_binarycode(filepath, byte):
             countbyte += i.size
             str_temp = i.mnemonic + ' ' + i.op_str
             ByteEp_list.append(str_temp)
+
     return ByteEp_list
 
 
