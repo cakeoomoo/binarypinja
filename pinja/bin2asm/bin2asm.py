@@ -2,6 +2,7 @@
 
 from elftools.elf.elffile import ELFFile
 from capstone import *
+from capstone.arm import *
 import glob
 import pefile
 from pinja.color.color import *

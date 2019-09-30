@@ -8,21 +8,22 @@ BINARY PINJA
 [![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
 
 This tool has the ability to create datasets for several ML(machine learning) programs in a NLP(natural language processing).
-The main feature is converted to binary-code and disassembly-code from executable files of intel-CPU, and make these CSV-files for easy handling in ML.
+The main feature is converted to disassembly-code from executable files in PE and ELF of x86_64, and make these CSV-files for easy handling in ML.
 The advantage is more simpler usage, and to use on free and open-source without Paid tools like IDA-Python.
 
 
 ## FEATURES:
 
 - Input
-    - directoryPath: `PEformat(.exe) files` or  `ELFformat exefiles`
+    - DirectoryPath :  `PEformat(.exe) files` or  `ELFformat exefiles`
 
 - Output
-    - `[dirpathname]_EP.csv`            :  Extract entry-point for all files
-    - `[dirpathname]_EP_asm.csv`        :  Extract disassembly code from entry-point of all files at arbitrary bytes
-    - `[dirpathname]_TEXTSec_asm.csv`   :  Extract disassembly code from text-section of all files
-    - `[dirpathname]_FUNC_asm.csv`      :  Extract disassembly code from all-function of all files(ELFbinary)
-    - `[dirpathname]_FUNC_asm_repl.csv` :  Transform disassembly code from csvfile by arbitrary rules
+    - `[dirname]_EP.csv`               :  Extract entry-point for all files
+    - `[dirname]_EP_asm.csv`           :  Extract disassembly code from entry-point of all files at arbitrary bytes
+    - `[dirname]_TEXTSec_asm.csv`      :  Extract disassembly code from text-section of all files
+    - `[dirname]_TEXTSec_asm_TRANS.csv`:  Transform disassembly code from csvfile by arbitrary rules
+    - `[dirname]_FUNC_asm.csv`         :  Extract disassembly code from all-function of all files(ELFbinary)
+    - `[dirname]_FUNC_asm_TRANS.csv`   :  Transform disassembly code from csvfile by arbitrary rules(ELFbinary)
 
 
 ### HOW TO INSTALL:
@@ -48,44 +49,44 @@ pinja [INPUT_DIRPATH]
 ### Example Command:
 
 ```
-pinja --help
 pinja data/testfile_pe
-pinja data/testfile_pe -b 180
-pinja -f elf data/testfile_pe -o DATASET001 
-pinja -f elf data/testfile_elf
-pinja -f elf data/testfile_elf -o DATASET002 
+pinja --help
+pinja -f pe data/infilePE -b 180
+pinja -f elf data/infilePE -o DATASET001 
+pinja -f elf data/infileELF
+pinja -f elf data/infileELF -o DATASET002 
 ```
 
 ### DEMO:
 
-pendding...
 
 
-![pinjaTree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree")
+![pinjaTree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree" {width=200px height=200px})
 
 
-
-Project Organization(Pending.....)
+Project Organization
 ------------
     
-    binarypinja
-    │ 
-    │ 
+  binarypinja
     ├── data
     │   ├── infileELF
-    │   ├── infileELF_1file
-    │   └── infilePE
+    │   ├── infilePE
+    │   ├── _misc
+    │   ├── outfileELF
+    │   └── outfilePE
     ├── image.jpg
     ├── LICENSE
     ├── pinja
     │   ├── bin2asm
-    │   │   └── bin2asm.py  <--------------------working!!!
+    │   │   └── bin2asm.py
     │   ├── color
-    │   │   ├── color.py
-    │   ├── getfileinfo
-    │   │   └── getfileinfo.py  <--------------------working!!!
+    │   │   └── color.py
+    │   ├── csvImprovement
+    │   │   └── csv_improvement.py
     │   ├── getbin
-    │   │   └── getbin.py <--------------------todo!!!
+    │   │   └── getbin.py
+    │   ├── getfileinfo
+    │   │   └── getfileinfo.py
     │   ├── __init__.py
     │   ├── main.py
     │   └── reference
@@ -93,11 +94,11 @@ Project Organization(Pending.....)
     │       └── use_doc2vec.py
     ├── README.md
     ├── requirements.txt
-    └── setup.py
+    └── setup.py 
 
 --------
 
-### Reference(for ALL contributor):
+### Reference:
 
 [click----https://pypi.org/project/click/](https://pypi.org/project/click/)
 
@@ -111,7 +112,6 @@ Project Organization(Pending.....)
 
 [PEheader----https://blog.kowalczyk.info/articles/pefileformat.html](https://blog.kowalczyk.info/articles/pefileformat.html)
 
-
 [elftools----https://github.com/eliben/pyelftools](https://github.com/eliben/pyelftools)
 
 [elftools-user's-guide----https://github.com/eliben/pyelftools/wiki/User%27s-guide](https://github.com/eliben/pyelftools/wiki/User%27s-guide)
@@ -124,23 +124,9 @@ Project Organization(Pending.....)
 
 [Refer reversing tool blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
 
-
---------
-
-#### todo reading links
-
-[https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92](https://gist.github.com/rjzak/47c28bf3421241c03653f1619e0d8d92)
-
 [https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY](https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY)
 
-[https://axcheron.github.io/pe-format-manipulation-with-pefile/](https://axcheron.github.io/pe-format-manipulation-with-pefile/)
-
 [https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe](https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe)
-
-[https://www.programcreek.com/python/example/91048/pefile.PE](https://www.programcreek.com/python/example/91048/pefile.PE)
-
-[https://ninoseki.hatenadiary.org/entry/20091029/1256820086](https://ninoseki.hatenadiary.org/entry/20091029/1256820086)
-
 
 --------
 
