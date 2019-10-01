@@ -1,11 +1,19 @@
 BINARY PINJA
 ==============================
 
-[![status](https://img.shields.io/badge/test-v0.0.1-ff7964.svg?style=for-the-badge)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
+![GitHub release (latest by date)](https://img.shields.io/github/v/release/cakeoomoo/binarypinja)
+
+![GitHub top language](https://img.shields.io/github/languages/top/cakeoomoo/binarypinja)
+
+![GitHub repo size](https://img.shields.io/github/repo-size/cakeoomoo/binarypinja)
 
 [![GitHub license](https://img.shields.io/github/license/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/blob/master/LICENSE)
 
 [![GitHub stars](https://img.shields.io/github/stars/cakeoomoo/binarypinja)](https://github.com/cakeoomoo/binarypinja/stargazers)
+
+[![Twitter](https://img.shields.io/twitter/url?style=social)](https://twitter.com/intent/tweet?text=Wow:&url=https%3A%2F%2Fgithub.com%2Fcakeoomoo%2Fbinarypinja)
+
+
 
 This tool has the ability to create datasets for several ML(machine learning) programs in a NLP(natural language processing).
 The main feature is converted to disassembly-code from executable files in PE and ELF of x86_64, and make these CSV-files for easy handling in ML.
@@ -23,7 +31,7 @@ The advantage is more simpler usage, and to use on free and open-source without 
     - `[dirname]_TEXTSec_asm.csv`      :  Extract disassembly code from text-section of all files
     - `[dirname]_TEXTSec_asm_TRANS.csv`:  Transform disassembly code from csvfile by arbitrary rules
     - `[dirname]_FUNC_asm.csv`         :  Extract disassembly code from all-function of all files(ELFbinary)
-    - `[dirname]_FUNC_asm_TRANS.csv`   :  Transform disassembly code from csvfile by arbitrary rules(ELFbinary)
+    - `[dirname]_FUNC_asm_TRANS.csv`   :  Transform disassembly code from csvfile by arbitrary rules(ELFbinary), example replace *call 0xffff* to *call 0x0*.
 
 
 ### HOW TO INSTALL:
@@ -46,10 +54,10 @@ pip3 install -e .
 pinja [INPUT_DIRPATH]
 ```
 
-### Example Command:
+##### Example Command:
 
 ```
-pinja data/testfile_pe
+pinja data/infilePE
 pinja --help
 pinja -f pe data/infilePE -b 180
 pinja -f elf data/infilePE -o DATASET001 
@@ -59,14 +67,17 @@ pinja -f elf data/infileELF -o DATASET002
 
 ### DEMO:
 
+pandding...
+
+![pinjatree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree")
 
 
-![pinjaTree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree" {width=200px height=200px})
+### Project Organization
 
-
-Project Organization
 ------------
     
+
+```bash
   binarypinja
     ├── data
     │   ├── infileELF
@@ -95,10 +106,11 @@ Project Organization
     ├── README.md
     ├── requirements.txt
     └── setup.py 
+```
 
 --------
 
-### Reference:
+### Reference
 
 [click----https://pypi.org/project/click/](https://pypi.org/project/click/)
 
@@ -118,15 +130,9 @@ Project Organization
 
 [elftools-example----https://www.programcreek.com/python/example/105189/elftools.elf.elffile.ELFFile](https://www.programcreek.com/python/example/105189/elftools.elf.elffile.ELFFile)
 
-[ELF----https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing](https://unix.stackexchange.com/questions/418354/understanding-what-a-linux-binary-is-doing)
-
 [ELF----https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b](https://gist.github.com/DhavalKapil/2243db1b732b211d0c16fd5d9140ab0b)
 
-[Refer reversing tool blog----https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4](https://dev.to/icyphox/python-for-reverse-engineering-1-elf-binaries-1fo4)
-
 [https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY](https://www.programcreek.com/python/example/50993/pefile.DIRECTORY_ENTRY)
-
-[https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe](https://stackoverflow.com/questions/19325402/getting-iat-and-eat-from-pe)
 
 --------
 
