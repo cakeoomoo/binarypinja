@@ -52,19 +52,14 @@ pinja [INPUT_DIRPATH]
 ##### Example Command:
 
 ```
-pinja data/infilePE
 pinja --help
-pinja -f pe data/infilePE -b 180
-pinja -f elf data/infilePE -o DATASET001 
-pinja -f elf data/infileELF
-pinja -f elf data/infileELF -o DATASET002 
+pinja data/infilePE
+pinja -f elf data/infileELF  -b 180 -o OUTPUTNAME 
 ```
 
-### DEMO:
+##### DEMO:
 
-![usage](https://github.com/cakeoomoo/binarypinja/blob/master/usage_gif01.gif)
-
-![pinjatree](https://github.com/cakeoomoo/binarypinja/blob/master/image.jpg "pinja tree")
+![usage](https://github.com/cakeoomoo/binarypinja/blob/master/mics/usage_gif01.gif)
 
 
 ### Project Organization
