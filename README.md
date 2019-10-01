@@ -28,8 +28,9 @@ The advantage is more simpler usage, and to use on free and open-source without 
     - `[dirname]_FUNC_asm.csv`         :  Extract disassembly code from all-function of all files(ELFbinary)
     - `[dirname]_FUNC_asm_TRANS.csv`   :  Transform disassembly code from csvfile by arbitrary rules(ELFbinary)
 
+###### out_FUNC_asm.csv
 
-![example csv](https://github.com/cakeoomoo/binarypinja/blob/master/output_example/out_FUNC_asm.csv)
+![csv sample](https://github.com/cakeoomoo/binarypinja/blob/master/mics/csv_sample.png)
 
 
 ### HOW TO INSTALL:
