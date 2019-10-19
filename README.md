@@ -33,21 +33,21 @@ The advantage is more simpler usage, and to use on free and open-source without 
 ![csv sample](https://github.com/cakeoomoo/binarypinja/blob/master/mics/csv_sample.png)
 
 
-### HOW TO INSTALL:
+## HOW TO INSTALL:
 
 ```
 pip3 install -r requirements.txt 
 pip3 install .
 ```
 
-### HOW TO INSTALL for Developper:
+## HOW TO INSTALL for Developper:
 
 ```
 pip3 install -r requirements.txt 
 pip3 install -e . 
 ```
 
-### Usage:
+## Usage:
 
 ```
 pinja [INPUT_DIRPATH]
@@ -66,45 +66,76 @@ pinja -f elf data/infileELF  -b 180 -o OUTPUTNAME
 ![usage](https://github.com/cakeoomoo/binarypinja/blob/master/mics/usage_gif01.gif)
 
 
-### Project Organization
 
-------------
-    
 
-```bash
-  binarypinja
-    ├── data
-    │   ├── infileELF
-    │   ├── infilePE
-    │   ├── _misc
-    │   ├── outfileELF
-    │   └── outfilePE
-    ├── image.jpg
-    ├── LICENSE
-    ├── pinja
-    │   ├── bin2asm
-    │   │   └── bin2asm.py
-    │   ├── color
-    │   │   └── color.py
-    │   ├── csvImprovement
-    │   │   └── csv_improvement.py
-    │   ├── getbin
-    │   │   └── getbin.py
-    │   ├── getfileinfo
-    │   │   └── getfileinfo.py
-    │   ├── __init__.py
-    │   ├── main.py
-    │   └── reference
-    │       ├── AEP256_01.py
-    │       └── use_doc2vec.py
-    ├── README.md
-    ├── requirements.txt
-    └── setup.py 
+## Use Case: Binarycode Similarity with pinja-dataset
+
+###### Purpose: Get the binarycode similarity score by using pinja-dataset
+
+###### Type: Machine Laernning of the Narural Language processing.
+
+###### Overview: Output each similarity score as a numerical value from 0 to 1 for each binary code.
+
 ```
+pip3 install pandas
+pip3 install gensim
+cd UseCase/
+python3 use.py out_TEXTSec_asm.csv
+```
+
+###### DEMO: about 1 minuts
+
+![usecase](https://github.com/cakeoomoo/binarypinja/blob/master/mics/UseCase.gif)
+
+
+###### Source code
+
+```python
+#!/usr/bin/python3
+# Usage: python3 use.py [CSVfile]
+
+import pandas as pd
+from gensim import models
+import pprint
+import sys
+
+args = sys.argv
+filename = args[1]
+
+print('>>>> Read CSV PINJA dataset')
+df = pd.read_csv(filename, header=0, index_col=0, dtype='str')
+df = df.fillna('EMPTY')
+asm_all = []
+for row in df.values.tolist():
+    asm_all.append([s for s in row if s != 'EMPTY'])
+
+print('>>>> Make the ML model')
+asmtext = []
+for x in asm_all:
+    asmtext.append(models.doc2vec.TaggedDocument(words=x, tags=[x[0]]))
+model = models.Doc2Vec(asmtext, dm=1, vector_size=300, window=5, alpha=.025, min_alpha=.025, min_count=0, sample=1e-6)
+
+print('>>>> Learning and Save model')
+epoch_num = 8
+for epoch in range(epoch_num):
+    print('Epoch: {}'.format(epoch + 1))
+    model.train(asmtext, epochs=model.iter, total_examples=model.corpus_count)
+    model.alpha -= (0.025 - 0.0001) / (epoch_num - 1)
+    model.min_alpha = model.alpha
+model.save(filename + ".doc2vec")
+
+print('>>>> Load model and Print Binary Code Similarity')
+model = models.Doc2Vec.load(filename + '.doc2vec')
+sim_list = []
+for x in asm_all:
+    sim_list.append([x[0], model.docvecs.most_similar([x[0]])])
+pprint.pprint(sim_list)
+```
+
 
 --------
 
-### Reference
+## Reference
 
 [click](https://pypi.org/project/click/)
 
