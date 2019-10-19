@@ -6,8 +6,12 @@
 /pinja/__pycache__
 /pinja/bin2asm/__pycache__
 /pinja/color/__pycache__
+/pinja/csvImprovement/__pycache__
 /pinja/getbin/__pycache__
 /pinja/getfileinfo/__pycache__
 /pinja/reference/__pycache__
 /binarypinja.egg-info
 /out
+/UseCase/*.doc2vec
+/UseCase/*.npy
+
